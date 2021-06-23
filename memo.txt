@@ -7,7 +7,7 @@ https://qiita.com/nsy_13/items/9fbc929f173984c30b5d#dockerfile
 ・WORKDIR：作業ディレクトリを設定
 ・COPY：ローカルファイルをコンテナへコピー
 → Gemfileやentrypoint.sh, docker-compose.ymlを作成
-・ENERYPOINT：一番最初に実行するコマンド
+・ENTRYPOINT：一番最初に実行するコマンド
 
 entrypoint.sh → exec "$@" はDockerfileのCMDで渡されたコマンドを実行する
 
@@ -17,6 +17,13 @@ docker-compose.ymlの作成
 
 
 docker-compose run web rails new . --force --no-deps --database=mysql --skip-bundle --rm
-docker-compose build
+docker-compose run web bundle exec rails webpacker:install
 
-rails webpacker:install
+docker-compose build
+docker-compose up
+
+docker-compose stop
+docker-compose down
+
+docker-compose up --build //dockerfileの編集時
+
