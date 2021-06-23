@@ -1,0 +1,29 @@
+version: '3'
+services:
+  db:
+    image: mysql:5.7
+    volumes:
+      - ./tmp/db:/var/lib/mysql/data
+    # container_name: mysql_host
+    # environment:
+    #     MYSQL_ROOT_PASSWORD: root
+    #     MYSQL_DATABASE: test_database
+    #     MYSQL_USER: docker
+    #     MYSQL_PASSWORD: docker
+    #     TZ: 'Asia/Tokyo'
+    # command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    # volumes:
+    #   - ./docker/db/data:/var/lib/mysql
+    #   - ./docker/db/my.cnf:/etc/mysql/conf.d/my.cnf
+    #   - ./docker/db/sql:/docker-entrypoint-initdb.d
+
+  web:
+    build: .
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - .:/app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    # dockerfile: Docker/Dockerfile

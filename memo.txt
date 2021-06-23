@@ -1,0 +1,22 @@
+Dockerのインストール → exeファイルより
+
+Dockerfileの記述
+https://qiita.com/kodai_0122/items/795438d738386c2c1966
+https://qiita.com/nsy_13/items/9fbc929f173984c30b5d#dockerfile
+
+・WORKDIR：作業ディレクトリを設定
+・COPY：ローカルファイルをコンテナへコピー
+→ Gemfileやentrypoint.sh, docker-compose.ymlを作成
+・ENERYPOINT：一番最初に実行するコマンド
+
+entrypoint.sh → exec "$@" はDockerfileのCMDで渡されたコマンドを実行する
+
+docker-compose.ymlの作成
+：フクスのコンテナで構成されるアプリケーションについて、Dockerイメージのビルドやらを簡単に行えるようにすること。ymlファイルに複数コンテナの定義を記述する。
+
+
+
+docker-compose run web rails new . --force --no-deps --database=mysql --skip-bundle --rm
+docker-compose build
+
+rails webpacker:install
