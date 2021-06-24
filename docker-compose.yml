@@ -1,17 +1,17 @@
 version: '3'
 services:
   db:
-    image: mysql:5.7
+    # image: mariadb
+    image: mysql
+    
     volumes:
       - ./tmp/db:/var/lib/mysql/data
     # container_name: mysql_host
-    # environment:
-    #     MYSQL_ROOT_PASSWORD: root
-    #     MYSQL_DATABASE: test_database
-    #     MYSQL_USER: docker
-    #     MYSQL_PASSWORD: docker
-    #     TZ: 'Asia/Tokyo'
-    # command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    environment:
+        MYSQL_ROOT_PASSWORD: root
+    ports:
+      - '3306:3306'
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --explicit_defaults_for_timestamp
     # volumes:
     #   - ./docker/db/data:/var/lib/mysql
     #   - ./docker/db/my.cnf:/etc/mysql/conf.d/my.cnf

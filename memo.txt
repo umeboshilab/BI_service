@@ -19,11 +19,12 @@ docker-compose.ymlの作成
 docker-compose run web rails new . --force --no-deps --database=mysql --skip-bundle --rm
 docker-compose run web bundle exec rails webpacker:install
 
+docker-compose up --build //dockerfileの編集時
+
 docker-compose build
 docker-compose up
 
 docker-compose stop
 docker-compose down
 
-docker-compose up --build //dockerfileの編集時
 

@@ -1,24 +1,34 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Dockerのコンテナの作成方法（？）
 
-Things you may want to cover:
+1. Dockerの起動
 
-* Ruby version
+2. 下記のコマンドを実行
 
-* System dependencies
+railsがないときの環境構築時だけ
+```
+docker-compose run web rails new . --force --no-deps --database=mysql --skip-bundle --rm
+docker-compose run web bundle exec rails webpacker:install
+```
 
-* Configuration
+githubからcloneしてきたときはrailsがあるので、下記のコマンドのみでいいはず。
 
-* Database creation
+```
+docker-compose build
+docker-compose up
+```
 
-* Database initialization
+<br>  
 
-* How to run the test suite
+3. 終了するとき実行
 
-* Services (job queues, cache servers, search engines, etc.)
+```
+docker-compose down
+```
 
-* Deployment instructions
 
-* ...
+
+※Dockerfileの内容を変更したときは下記のコマンドで更新するらしい
+docker-compose up --build //dockerfileの編集時
+
