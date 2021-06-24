@@ -32,3 +32,4 @@ docker-compose down
 ※Dockerfileの内容を変更したときは下記のコマンドで更新するらしい
 docker-compose up --build //dockerfileの編集時
 
+docker-compose down --rmi all && docker-compose up --build
