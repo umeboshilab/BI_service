@@ -17,7 +17,8 @@ docker-compose.ymlの作成
 
 
 docker-compose run web rails new . --force --no-deps --database=mysql --skip-bundle --rm
-docker-compose run web bundle exec rails webpacker:install
+// docker-compose run web bundle exec rails webpacker:install
+docker-compose run web bundle install
 
 docker-compose up --build //dockerfileの編集時
 
@@ -28,3 +29,4 @@ docker-compose stop
 docker-compose down
 
 
+goの何かで実行できない問題は、entrypoint.shの実行shellが存在しないから。改行コードの問題もあるっぽい。

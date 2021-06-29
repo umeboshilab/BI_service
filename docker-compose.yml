@@ -2,19 +2,19 @@ version: '3'
 services:
   db:
     # image: mariadb
-    image: mysql
+    image: mysql:5.7
 
     # https://qiita.com/azul915/items/5b7063cbc80192343fc0
     # volumes:
     #   - ./tmp/db:/var/lib/mysql/data # これを残しているとDBをinitializeできなかった
-    # container_name: mysql_host
+
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: test
       MYSQL_USER: docker
       MYSQL_PASSWORD: docker
     ports:
-      - '3306:3306'
+      - '3307:3307'
     # command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --explicit_defaults_for_timestamp
 
   web:
@@ -26,4 +26,3 @@ services:
       - "3000:3000"
     depends_on:
       - db
-    # dockerfile: Docker/Dockerfile

@@ -19,6 +19,24 @@ docker-compose build
 docker-compose up
 ```
 
+
+// 別ターミナルを開いて
+database.ymlの先頭を下記のように変更し、
+```
+default: &default
+  adapter: mysql2
+  encoding: utf8mb4
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: root
+  password: password
+  host: db
+```
+
+docker-composeでDBを生成
+```
+docker-compose run web rails db:create
+```
+
 <br>  
 
 3. 終了するとき実行
@@ -29,7 +47,10 @@ docker-compose down
 
 
 
-※Dockerfileの内容を変更したときは下記のコマンドで更新するらしい
+※Dockerfileの内容を変更したときは下記のコマンドで更新するらしい  
+
+```
 docker-compose up --build //dockerfileの編集時
 
-docker-compose down --rmi all && docker-compose up --build
+docker-compose down --rmi all && docker-compose up --build // 強めのリセット（pruneもあり？）
+```
