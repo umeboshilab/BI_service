@@ -15,6 +15,12 @@ Request.create!( # !をつけると例外処理にできるらしい。
             good: 3,
         },
         {
+            title: 'hoge', 
+            message: 'fuga', 
+            isChecked: false, 
+            good: 9, 
+        },
+        {
             title: '机ごとにパーティションで視界を区切ってほしい', 
             message: 'コロナの飛沫が怖いので。チョロチョロ歩き回っている人がうざい。消音性もありそう。', 
             isChecked: false, 
@@ -26,22 +32,18 @@ Request.create!( # !をつけると例外処理にできるらしい。
 Task.create!(
     [
         {    
-            reqestID: 1, 
-            userID: 1, 
+            request_id: 1, 
+            hostUser_id: 1, 
             comment: 'ええやんけ', 
             isAccepted: true, 
-            isDeleted: false, 
             isDone: false, 
-            follower: 2 
         },
         {    
-            reqestID: 2,
-            userID: 1,
+            request_id: 1, 
+            hostUser_id: 2, 
             comment: 'うるせえカス',
             isAccepted: false,
-            isDeleted: false,
             isDone: false,
-            follower: 5
         }
     ]
 )
@@ -50,13 +52,24 @@ User.create!(
     [
         {
             name: 'root', 
-            position: 'CEO', 
             password: 'password', 
         },
         {    
             name: 'hage',
-            position: '人事部長',
             password: 'password',
         }
+    ]
+)
+
+HostUser.create!(
+    [
+        {
+            user_id: 1,
+            position: 'CEO',
+        },
+        {
+            user_id: 2,
+            position: 'sugoi',
+        },
     ]
 )
