@@ -6,6 +6,43 @@
                 入力フォームがここ
             </div>
 
+            <!-- 保存に失敗したらエラーメッセージを表示 -->
+            <% if flash[:error_messages] %>
+                <div>
+                    <ul>
+                        <% flash[:error_messages].each do |msg| %>
+                            <li><%= msg %></li>
+                        <% end %>
+                    </ul>
+                </div>
+            <% end %>
+
+            <!-- 保存に成功したらメッセージを表示 -->
+            <% if flash[:notice] %>
+                <div>
+                    <%= flash[:notice] %>
+                </div>
+            <% end %>
+
+            <%= form_with model: @request do |f| %>
+                <div>
+                    <div>
+                        <%= f.label :title, 'リクエストのタイトル', class: 'クラスを設定' %>
+                        <%= f.text_field :title, class: 'クラスを設定' %>
+                    </div>
+                    <div>
+                        <%= f.label :message, '内容', class: 'クラスを設定' %>
+                        <%= f.text_area :message, rows: 5, class: 'クラスを設定' %>
+                    </div>
+                    <div>
+                        <%= f.label :image, '画像', class: 'クラスを設定' %>
+                        <%= f.file_field :image, rows: 5 %>
+                    </div>
+                    <%= f.submit '送信', class: 'クラスを設定' %>
+                </div>
+            <% end %>
+
+         
             <% @requests.each do |request|%>
                 <div id="requestsList", class="border centerize cardMargin">
                         <div><%= request.id %></div>
