@@ -1,10 +1,5 @@
 class ServiceController < ApplicationController
-<<<<<<< Updated upstream
-    def index
-        @requests = Request.all
-    end
-=======
   def index
+    @requests = Request.all
   end
->>>>>>> Stashed changes
 end
