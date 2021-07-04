@@ -1,7 +1,8 @@
 require "test_helper"
 
 class ServiceControllerTest < ActionDispatch::IntegrationTest
-  # test "the truth" do
-  #   assert true
-  # end
+  test "should get index" do
+    get service_index_url
+    assert_response :success
+  end
 end
