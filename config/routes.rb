@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  # root 'service#index'
+  get 'top/index'
   post 'users/create'
   # put  'users/:id' => 'users/update'
   get  'users' =>   'users#show'
@@ -13,3 +15,6 @@ Rails.application.routes.draw do
   # put  '/requests/:id' =>   'requests#report'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
+
+
+# /app/app/views/layouts/application.html.erb
