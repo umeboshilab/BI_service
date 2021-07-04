@@ -1,5 +1,5 @@
 class ServiceController < ApplicationController
-  def index
-    @requests = Request.all
-  end
+    def index
+        @requests = Request.all
+    end
 end
