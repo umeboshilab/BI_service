@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get 'top/index'
   post 'users/create'
   # put  'users/:id' => 'users/update'
+  get 'service' => 'service#index'
   get  'users' =>   'users#show'
   post  'users' =>  'users#signin'
   post  'tasks' =>  'tasks#create'

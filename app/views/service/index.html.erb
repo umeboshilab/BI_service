@@ -1,1 +1,7 @@
 service#index
+
+<% @requests.each do |request|%>
+    <div><%= request.id %></div>
+    <div><%= request.title %></div>
+    <div><%= request.message %></div>
+<% end %>
