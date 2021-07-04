@@ -1,7 +1,36 @@
-service#index
+<div id="bodyWrapper">
+    <p>service#index</p>
+    <div id="serviceContainer" class="equalArrangement">
+        <div id="requestsBody">
+            <div id="requestForm" class="border">
+                入力フォームがここ
+            </div>
 
-<% @requests.each do |request|%>
-    <div><%= request.id %></div>
-    <div><%= request.title %></div>
-    <div><%= request.message %></div>
-<% end %>
+            <% @requests.each do |request|%>
+                <div id="requestsList", class="border centerize cardMargin">
+                        <div><%= request.id %></div>
+                        <div><%= request.title %></div>
+                        <div><%= request.message %></div>
+                </div>
+            <% end %>
+        </div>
+
+
+        <div id="rightContainer">
+            <%# <hr> %>
+            acceptedList
+            <% @requests.each do |request|%>
+                <div id="acceptedList", class="border cardMargin">
+                    <div><%= request.id %></div>
+                    <div><%= request.title %></div>
+                    <div><%= request.message %></div>
+                </div>
+            <% end %>
+            <%# </div> %>
+            <div id="transitionButtons" class="equalArrangement">
+                <input type="button" value="Rejected">
+                <input type="button" value="Done">
+            </div>
+        </div>
+    </div>
+</div>
