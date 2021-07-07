@@ -53,14 +53,15 @@
             <div class="rounded-lg border-2 border-gray-500 bg-gray-100 mx-2 my-4 p-2">
                 <p  class="font-sans font-medium text-2xl">Request List</p>
                 <% @requests.each do |request|%>
+                    <div id="requestsList" draggable="true" class="h-32 shadow-md bg-white rounded-lg mx-2 my-4 flex justify-start">
                         <div class="left-0 w-32 h-32">
-                            <div class="w-32 h-32 bg-blue-300 rounded-l-lg">
-                            <% request_image_path = "public/request_images/#{request.id}_#{request.image}" %>
-                            <% if File.exist?(request_image_path) %>
-                                <%= image_tag "/request_images/#{request.id}_#{request.image}" %>
-                            <% else %>
-                                <%= image_tag "/request_images/no_image.png" %>
-                            <% end %>
+                            <div class="w-32 h-32 rounded-l-lg">
+                                <% request_image_path = "public/request_images/#{request.id}_#{request.image}" %>
+                                <% if File.exist?(request_image_path) %>
+                                    <%= image_tag "/request_images/#{request.id}_#{request.image}", class: "object-cover rounded-l-lg h-full" %>
+                                <% else %>
+                                    <%= image_tag "/request_images/no_image.png", class: "object-cover rounded-l-lg  h-full" %>
+                                <% end %>
                             </div>
                         </div>
                         <div class="w-max m-2 truncate">
