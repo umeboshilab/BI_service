@@ -57,7 +57,12 @@
                             <div><%= request.id %></div>
                             <div><%= request.title %></div>
                             <div><%= request.message %></div>
-                            <div><%= request.image %></div>
+                            <% request_image_path = "public/request_images/#{request.id}_#{request.image}" %>
+                            <% if File.exist?(request_image_path) %>
+                                <%= image_tag "/request_images/#{request.id}_#{request.image}" %>
+                            <% else %>
+                                <%= image_tag "/request_images/no_image.png" %>
+                            <% end %>
                     </div>
                 <% end %>
             </div>
