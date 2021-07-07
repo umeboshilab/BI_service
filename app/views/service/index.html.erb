@@ -41,13 +41,13 @@
                     <%= f.submit '送信', class: 'クラスを設定' %>
                 </div>
             <% end %>
-
          
             <% @requests.each do |request|%>
                 <div id="requestsList", class="border centerize cardMargin">
                         <div><%= request.id %></div>
                         <div><%= request.title %></div>
                         <div><%= request.message %></div>
+                        <div><%= request.image %></div>
                 </div>
             <% end %>
         </div>
@@ -56,12 +56,14 @@
         <div id="rightContainer">
             <%# <hr> %>
             acceptedList
-            <% @requests.each do |request|%>
-                <div id="acceptedList", class="border cardMargin">
-                    <div><%= request.id %></div>
-                    <div><%= request.title %></div>
-                    <div><%= request.message %></div>
-                </div>
+            <% @tasks.each do |task| %>
+                <div><%= task.request.id %></div>
+                <div><%= task.request.title %></div>
+                <div><%= task.request.message %></div>
+                <div><%= task.id %></div>
+                <div><%= task.host_user.user_id %></div>
+                <div><%= task.host_user.position %></div>
+                <div><%= task.comment %></div>
             <% end %>
             <%# </div> %>
             <div id="transitionButtons" class="equalArrangement">

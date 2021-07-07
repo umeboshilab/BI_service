@@ -24,8 +24,8 @@ ActiveRecord::Schema.define(version: 2021_07_02_145603) do
   create_table "requests", charset: "utf8mb4", force: :cascade do |t|
     t.string "title", null: false
     t.text "message", null: false
-    t.boolean "isChecked"
-    t.integer "good"
+    t.boolean "isChecked", default: false, null: false
+    t.integer "good", default: 0, null: false
     t.binary "image"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -33,13 +33,13 @@ ActiveRecord::Schema.define(version: 2021_07_02_145603) do
 
   create_table "tasks", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "request_id", null: false
-    t.bigint "hostUser_id", null: false
+    t.bigint "host_user_id", null: false
     t.text "comment"
     t.boolean "isAccepted", null: false
-    t.boolean "isDone"
+    t.boolean "isDone", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["hostUser_id"], name: "index_tasks_on_hostUser_id"
+    t.index ["host_user_id"], name: "index_tasks_on_host_user_id"
     t.index ["request_id"], name: "index_tasks_on_request_id"
   end
 

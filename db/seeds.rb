@@ -29,24 +29,14 @@ Request.create!( # !をつけると例外処理にできるらしい。
     ]
 )
 
-Task.create!(
-    [
-        {    
-            request_id: 1, 
-            hostUser_id: 1, 
-            comment: 'ええやんけ', 
-            isAccepted: true, 
-            isDone: false, 
-        },
-        {    
-            request_id: 1, 
-            hostUser_id: 2, 
-            comment: 'うるせえカス',
-            isAccepted: false,
-            isDone: false,
-        }
-    ]
-)
+(1..10).each do |i|
+    Request.create!({
+        title: "タイトル#{i}",
+        message: "メッセージ#{i}",
+        isChecked: i % 2 == 0,
+        good: 10
+    })
+end    
 
 User.create!(
     [
@@ -73,3 +63,15 @@ HostUser.create!(
         },
     ]
 )
+
+flag = true
+Request.where(isChecked: true).each do |user|
+    Task.create({
+        request_id: user.id,
+        host_user_id: flag ? 1 : 0,
+        comment: flag ? '承認' : '否承認',
+        isAccepted: flag,
+        isDone: false
+    })
+    flag = !flag
+end
