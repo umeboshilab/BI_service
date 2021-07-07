@@ -18,8 +18,8 @@ class CreateRequests < ActiveRecord::Migration[6.1]
 
       t.string :title,  null: false
       t.text :message,  null: false
-      t.boolean :isChecked
-      t.integer :good
+      t.boolean :isChecked,  null: false, default: false
+      t.integer :good,  null: false, default: 0
       t.binary :image
 
       t.timestamps

@@ -2,12 +2,15 @@ class RequestsController < ApplicationController
   def create
     @request = Request.new(request_params)
     if @request.save
-      # @request = Request.new
       flash[:notice] = "リクエストを投稿しました"
+      redirect_to service_path
     else
-      flash[:error_messages] = @request.errors.full_messages
+      redirect_to service_path, flash: {
+        request: @request,
+        error_messages: @request.errors.full_messages
+      }
     end
-    redirect_to service_path
+
   end
 
   def show
