@@ -1,9 +1,9 @@
-<div id="bodyWrapper">
-    <div id="serviceContainer" class="md:w-11/12 mx-auto flex justify-evenly p-4 bg-white center">
-        <div id="requestsBody" class="w-5/12">
+<div id="bodyWrapper" class="bg-white">
+    <div id="serviceContainer" class="w-11/12 mx-auto flex-wrap md:flex justify-evenly p-4 center">
+        <div id="requestsBody" class="lg:w-5/12  w-5/6">
 
             <!-- 保存に失敗したらエラーメッセージを表示 -->
-            <div class="bg-gray-100 rounded-md border-4 border-gray-500 mx-2 my-4 p-2">
+            <div class="bg-gray-100 rounded-lg border-2 border-gray-500 mx-2 my-4 p-2">
                 <p class="font-sans font-medium text-2xl">Create A New Request</p>
     
                 <% if flash[:error_messages] %>
@@ -50,55 +50,71 @@
             </div>
 
 
-            <div class="rounded-md border-gray-500 bg-gray-100 border-4 mx-2 my-4 p-2">
+            <div class="rounded-lg border-2 border-gray-500 bg-gray-100 mx-2 my-4 p-2">
                 <p  class="font-sans font-medium text-2xl">Request List</p>
                 <% @requests.each do |request|%>
-                    <div id="requestsList", class="shadow-md bg-white rounded-lg h-18 mx-2 my-4 p-1">
-                            <div><%= request.id %></div>
-                            <div><%= request.title %></div>
-                            <div><%= request.message %></div>
-                            <div><%= request.image %></div>
+                    <div id="requestsList" draggable="true" class="h-32 shadow-md bg-white rounded-lg mx-2 my-4 flex justify-start">
+                        <div class="left-0 w-32 h-32">
+                            <div class="w-32 h-32 bg-blue-300 rounded-l-lg">
+                                <%= request.image %>
+                            </div>
+                        </div>
+                        <div class="w-max m-2 truncate">
+                            <div class="font-bold text-lg"><%= request.title %></div>
+                            <div class="break-word text-base"><%= request.message %></div>
+                        </div>
                     </div>
                 <% end %>
             </div>
         </div>
 
 
-        <div id="rightContainer" class="w-5/12">
-            <div class="bg-gray-100 rounded-md border-gray-500 border-4 mx-2 my-4 p-2">
+        <div id="rightContainer" class="lg:w-5/12  w-5/6">
+            <div class="rounded-lg border-2 border-gray-500 bg-gray-100  mx-2 my-4 p-2">
                 <%# <hr> %>
                 <p  class="font-sans font-medium text-2xl">Accepted List</p>
                 <% @tasks.each do |task| %>
-                    <div id="acceptedList", class="shadow-md bg-white rounded-lg h-18 mx-2 my-4 p-1">
-                        <div><%= task.request.id %></div>
-                        <div><%= task.request.title %></div>
-                        <div><%= task.request.message %></div>
-                        <div><%= task.id %></div>
-                        <div><%= task.host_user.user_id %></div>
-                        <div><%= task.host_user.position %></div>
-                        <div><%= task.comment %></div>
+                    <div id="acceptedList", class="h-64 bg-white mx-2 my-4 rounded-lg shadow-md">
+                        <div class="h-32 rounded-t-lg flex justify-start border-b-2">
+                            <div class="left-0 w-32 h-32">
+                                <div class="w-32 h-32 bg-blue-300 rounded-tl-lg">
+                                    <%= task.request.image %>
+                                    <p>a</p>
+                                </div>
+                            </div>
+
+                            <div class="w-full m-2">
+                                <div class="truncate font-bold text-lg w-max"><%= task.request.title %></div>
+                                <div class="break-word text-base"><%= task.request.message %></div>
+                            </div>
+                        </div>
+
+                        <div class="m-2">
+                            <div class="flex justify-between">
+                                <div class="my-auto font-bold text-lg inset-y-0">承認理由</div>
+                                <div>
+                                    <div class="inline-block align-middle rounded-full h-12 w-12 bg-red-100"><%= task.host_user.image %></div>
+                                    <div class="inline-block align-middle font-bold text-lg w-max mx-2"><%= task.host_user.position %></div>
+                                </div>
+                            </div>
+                            <div>
+                                <%= task.comment %>
+                            </div>
+                        </div>
                     </div>
+
+
+                    <%# <%= task.request.id %>
+                    <%# <%= task.id %>
+                    <%# <%= task.host_user.user_id %>
                 <% end %>
 
+
             </div>
-            <div id="transitionButtons" class="flex justify-evenly">
-                <input type="button" value="Rejected" class="w-1/3 py-2 px-4 font-semibold rounded-lg shadow-md text-white bg-red-500 hover:bg-red-700">
-                <input type="button" value="Done" value="Rejected" class="w-1/3 py-2 px-4 font-semibold rounded-lg shadow-md text-white bg-green-500 hover:bg-green-700">
+            <div id="transitionButtons" class="flex justify-evenly my-4">
+                <input type="button" value="Rejected" class="h-16 w-1/3 py-2 px-4 font-semibold text-2xl rounded-lg shadow-md text-white bg-red-500 hover:bg-red-700">
+                <input type="button" value="Done" value="Rejected" class="h-16 w-1/3 py-2 px-4 font-semibold text-2xl  rounded-lg shadow-md text-white bg-green-500 hover:bg-green-700">
             </div>
         </div>
     </div>
 </div>
-
-<%# 
-<div class="font-sans bg-white h-screen flex flex-col w-full">
- <div class="h-screen bg-gradient-to-r from-green-400 to-blue-500">
-  <div class="px-4 py-48">
-   <div class="relative w-full text-center">
-    <h1
-     class="animate-pulse font-bold text-gray-200 text-2xl mb-6">
-    Your TailwindCSS setup is working if this pulses....
-    </h1>
-   </div>
-  </div>
- </div>
-</div> %>
