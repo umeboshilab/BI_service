@@ -1,78 +1,89 @@
 <div id="bodyWrapper">
-    <p>service#index</p>
-    <div id="serviceContainer" class="equalArrangement">
-        <div id="requestsBody">
-            <div id="requestForm" class="border">
-                入力フォームがここ
-            </div>
+    <div id="serviceContainer" class="md:w-11/12 mx-auto flex justify-evenly p-4 bg-white center">
+        <div id="requestsBody" class="w-5/12">
 
             <!-- 保存に失敗したらエラーメッセージを表示 -->
-            <% if flash[:error_messages] %>
-                <div>
-                    <ul>
-                        <% flash[:error_messages].each do |msg| %>
-                            <li><%= msg %></li>
-                        <% end %>
-                    </ul>
-                </div>
-            <% end %>
-
-            <!-- 保存に成功したらメッセージを表示 -->
-            <% if flash[:notice] %>
-                <div>
-                    <%= flash[:notice] %>
-                </div>
-            <% end %>
-
-            <%= form_with model: @request do |f| %>
-                <div>
-                    <div>
-                        <%= f.label :title, 'リクエストのタイトル', class: 'クラスを設定' %>
-                        <%= f.text_field :title, class: 'クラスを設定' %>
+            <div class="bg-gray-100 rounded-md border-4 border-gray-500 mx-2 my-4 p-2">
+                <p class="font-sans font-medium text-2xl">Create A New Request</p>
+    
+                <% if flash[:error_messages] %>
+                    <div class="text-red-500">
+                        <ul>
+                            <% flash[:error_messages].each do |msg| %>
+                                <li><%= msg %></li>
+                            <% end %>
+                        </ul>
                     </div>
-                    <div>
-                        <%= f.label :message, '内容', class: 'クラスを設定' %>
-                        <%= f.text_area :message, rows: 5, class: 'クラスを設定' %>
-                    </div>
-                    <div>
-                        <%= f.label :image, '画像', class: 'クラスを設定' %>
-                        <%= f.file_field :image, rows: 5 %>
-                    </div>
-                    <%= f.submit '送信', class: 'クラスを設定' %>
-                </div>
-            <% end %>
+                <% end %>
 
-         
-            <% @requests.each do |request|%>
-                <div id="requestsList", class="border centerize cardMargin">
-                        <div><%= request.id %></div>
-                        <div><%= request.title %></div>
-                        <div><%= request.message %></div>
+                <!-- 保存に成功したらメッセージを表示 -->
+                <% if flash[:notice] %>
+                    <div>
+                        <%= flash[:notice] %>
+                    </div>
+                <% end %>
+
+                <div class="m-2">
+                    <%= form_with model: @request do |f| %>
+                        <div class="rounded-md shadow-sm -space-y-px">
+                        </div>
+
+                        <div class="">
+                            <%= f.label :title, 'Title', class: 'sr-only' %>
+                            <%= f.text_field :title, class: 'appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm', placeholder: 'Title:' %>
+                        </div>
+                        <div class="">
+                            <%= f.label :message, 'Message', class: 'sr-only' %>
+                            <%= f.text_area :message, rows: 5, class: 'appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm', placeholder: 'Message:' %>
+                        </div>
+                        <div class="flex-wrap justify-between m-2 xl:flex">
+                            <div class="">
+                                <%= f.label :image, '画像', class: 'クラスを設定' %>
+                                <%= f.file_field :image, class: 'w-36 lg:w-64'  %>
+                            </div>
+                            <div class="">
+                            <%= f.submit 'Send', class: 'm-2 py-2 px-4 font-semibold rounded-lg shadow-md border-2 border-black text-black bg-white hover:bg-gray-100' %>
+                            </div>
+                        </div>
+                    <% end %>
                 </div>
-            <% end %>
+            </div>
+
+
+            <div class="rounded-md border-gray-500 bg-gray-100 border-4 mx-2 my-4 p-2">
+                <p  class="font-sans font-medium text-2xl">Request List</p>
+                <% @requests.each do |request|%>
+                    <div id="requestsList", class="shadow-md bg-white rounded-lg h-18 mx-2 my-4 p-1">
+                            <div><%= request.id %></div>
+                            <div><%= request.title %></div>
+                            <div><%= request.message %></div>
+                    </div>
+                <% end %>
+            </div>
         </div>
 
 
-        <div id="rightContainer">
-            <%# <hr> %>
-            acceptedList
-            <% @requests.each do |request|%>
-                <div id="acceptedList", class="border cardMargin">
-                    <div><%= request.id %></div>
-                    <div><%= request.title %></div>
-                    <div><%= request.message %></div>
-                </div>
-            <% end %>
-            <%# </div> %>
-            <div id="transitionButtons" class="equalArrangement">
-                <input type="button" value="Rejected">
-                <input type="button" value="Done">
+        <div id="rightContainer" class="w-5/12">
+            <div class="bg-gray-100 rounded-md border-gray-500 border-4 mx-2 my-4 p-2">
+                <%# <hr> %>
+                <p  class="font-sans font-medium text-2xl">Accepted List</p>
+                <% @requests.each do |request|%>
+                    <div id="acceptedList", class="shadow-md bg-white rounded-lg h-18 mx-2 my-4 p-1">
+                        <div><%= request.id %></div>
+                        <div><%= request.title %></div>
+                        <div><%= request.message %></div>
+                    </div>
+                <% end %>
+            </div>
+            <div id="transitionButtons" class="flex justify-evenly">
+                <input type="button" value="Rejected" class="w-1/3 py-2 px-4 font-semibold rounded-lg shadow-md text-white bg-red-500 hover:bg-red-700">
+                <input type="button" value="Done" value="Rejected" class="w-1/3 py-2 px-4 font-semibold rounded-lg shadow-md text-white bg-green-500 hover:bg-green-700">
             </div>
         </div>
     </div>
 </div>
 
-
+<%# 
 <div class="font-sans bg-white h-screen flex flex-col w-full">
  <div class="h-screen bg-gradient-to-r from-green-400 to-blue-500">
   <div class="px-4 py-48">
@@ -84,4 +95,4 @@
    </div>
   </div>
  </div>
-</div>
+</div> %>
