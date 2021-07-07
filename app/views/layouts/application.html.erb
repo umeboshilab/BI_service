@@ -15,12 +15,18 @@
   </head>
 
   <body>
-    <header>
-      <div>BI_service</div>
-      <div><input type="button" value="signup"></div>
-      <hr>
+    <header class="relative bg-white ">
+      <div class="flex w-screen justify-between border-b-2 py-2 px-4">
+        <div class="font-sans text-4xl mx-2 ">BI_service(logo)</div>
+        <div>
+          <input type="button" value="Sign in" class="py-2 px-4 mx-2 font-semibold rounded-lg shadow-md text-gray-500 hover:text-gray-700">
+          <input type="button" value="Sign up" class="py-2 px-4 mx-2 font-semibold rounded-lg shadow-md text-white bg-green-500 hover:bg-green-700">
+        </div>
+      </div>
     </header>
+    <div class="related">
     <%= yield %>
+    </div>
 
     <footer>
     <hr>
