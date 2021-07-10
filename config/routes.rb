@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   post  'tasks' =>  'tasks#create'
   # delete '/tasks/:id' => 'tasks#delete'
   get  '/tasks/list' =>   'tasks#show'
-  # put  '/tasks/:id' =>   'tasks#update'
+  patch  '/tasks/:id' =>   'tasks#update', as: 'task'
   get '/requests/new' =>   'requests#new' 
   post '/requests' =>   'requests#create'
   get '/tasks/rejected' => 'tasks#index_rejected'

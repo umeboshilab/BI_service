@@ -1,5 +1,11 @@
 <div id="bodyWrapper" class="bg-white">
     <div id="serviceContainer" class="w-11/12 mx-auto flex-wrap md:flex justify-evenly p-4 center">
+        <!-- 更新に成功したらメッセージを表示 -->
+        <% if flash[:notice] %>
+            <div>
+                <%= flash[:notice] %>
+            </div>
+        <% end %>
         <div id="rightContainer" class="lg:w-5/12  w-5/6">
             <div class="rounded-lg border-2 border-gray-500 bg-gray-100  mx-2 my-4 p-2">
                 <%# <hr> %>

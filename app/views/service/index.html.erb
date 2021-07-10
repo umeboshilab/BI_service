@@ -63,7 +63,7 @@
                                 <% end %>
                             </div>
                         </div>
-                        <div class="w-max flex flex-col flex-grow justify-between truncate">
+                        <div class="flex flex-col flex-grow justify-between truncate">
                             <div class="m-2">
                                 <div class="font-bold text-lg"><%= request.title %></div>
                                 <div class="break-word text-base"><%= request.message %></div>
@@ -84,7 +84,7 @@
                 <%# <hr> %>
                 <p  class="font-sans font-medium text-2xl">Accepted List</p>
                 <% @tasks.each do |task| %>
-                    <div id="acceptedList", class="h-64 bg-white mx-2 my-4 rounded-lg shadow-md">
+                    <div id="acceptedList", class="flex flex-col h-64 bg-white mx-2 my-4 rounded-lg shadow-md">
                         <div class="h-32 rounded-t-lg flex justify-start border-b-2">
                             <div class="left-0 w-32 h-32">
                                 <div class="w-32 h-32 bg-blue-300 rounded-tl-lg">
@@ -96,10 +96,11 @@
                                     <% end %>
                                 </div>
                             </div>
-
-                            <div class="w-full m-2">
-                                <div class="truncate font-bold text-lg w-max"><%= task.request.title %></div>
-                                <div class="break-word text-base"><%= task.request.message %></div>
+                            <div class="flex flex-col flex-grow justify-between truncate">
+                                <div class="m-2">
+                                    <div class="truncate font-bold text-lg w-max"><%= task.request.title %></div>
+                                    <div class="break-word text-base"><%= task.request.message %></div>
+                                </div>
                             </div>
                         </div>
 
@@ -114,6 +115,10 @@
                             <div>
                                 <%= task.comment %>
                             </div>
+                        </div>
+                        <div class="mt-auto flex flex-row">
+                            <input type="button" value="Done" onclick="document.getElementById( 'complete_form' ).action = '/tasks/<%= task.id %>'; document.getElementById( 'task_request_id' ).value = '<%= task.request.id %>'; document.getElementById( 'task_isDone' ).value = '1';" class="h-8 py-1 px-4 flex-1 font-semibold text-l shadow-md rounded-bl-lg text-white bg-green-500 hover:bg-green-700">
+                            <input type="button" value="Cancel" onclick="document.getElementById( 'task_request_id' ).value = '<%= task.request.id %>'; document.getElementById( 'task_isAccepted' ).value = '0';;" class="h-8 py-1 px-4 flex-1 font-semibold text-l shadow-md rounded-br-lg text-white bg-red-500 hover:bg-red-700">
                         </div>
                     </div>
 
@@ -136,9 +141,6 @@
             <p id="confirmation_message" class="font-sans font-medium text-2xl"></p>
             <div class="m-2">
                 <%= form_with model: @task do |f| %>
-                    <div class="rounded-md shadow-sm -space-y-px">
-                    </div>
-
                     <div class="">
                         <%= f.hidden_field :request_id %>
                         <%= f.hidden_field :isAccepted %>
@@ -153,6 +155,27 @@
                     </div>
                 <% end %>
             </div>
-        </div>    
+        </div> 
+        
+        <!-- 完了フォーム -->
+        <div class="bg-gray-100 rounded-lg border-2 border-gray-500 mx-2 my-4 p-2">
+            <p class="font-sans font-medium text-2xl">Have you completed this task?</p>
+            <div class="m-2">
+                <%= form_with model: @task, id: "complete_form", method: 'patch' do |f| %>
+                    <div class="">
+                        <%= f.hidden_field :request_id %>
+                        <%= f.hidden_field :isDone %>
+                        <%= f.hidden_field :host_user_id, value: 1 %>
+                    </div>
+                    <div class="">
+                        <%= f.label :comment, 'Comment', class: 'sr-only' %>
+                        <%= f.text_area :comment, rows: 5, class: 'appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm', placeholder: 'Comment:' %>
+                    </div>
+                    <div class="">
+                        <%= f.submit 'Send', class: 'm-2 py-2 px-4 font-semibold rounded-lg shadow-md border-2 border-black text-black bg-white hover:bg-gray-100' %>
+                    </div>
+                <% end %>
+            </div>
+        </div> 
     </div>
 </div>

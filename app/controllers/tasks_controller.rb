@@ -49,9 +49,23 @@ class TasksController < ApplicationController
   end
 
   def update
+    task = Task.find(params[:id])
+    if task.update(task_update_params)
+      flash[:notice] = "#{task.request.title}を完了済みタスクに登録しました"
+      redirect_to tasks_done_path
+    else
+      redirect_to service_path, flash: {
+        task: task,
+        error_messages: task.errors.full_messages
+      }
+    end
   end
 
   def task_params
     params.require(:task).permit(:request_id, :host_user_id, :isAccepted, :comment)
+  end
+
+  def task_update_params
+    params.require(:task).permit(:host_user_id, :isDone, :comment)
   end
 end
