@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get  'users' =>   'users#show'
   post  'users' =>  'users#signin'
   post  'tasks' =>  'tasks#create'
-  # delete '/tasks/:id' => 'tasks#delete'
+  delete '/tasks/:id' => 'tasks#destroy'
   get  '/tasks/list' =>   'tasks#show'
   patch  '/tasks/:id' =>   'tasks#update', as: 'task'
   get '/requests/new' =>   'requests#new' 

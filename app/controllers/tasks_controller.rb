@@ -15,25 +15,50 @@ class TasksController < ApplicationController
       end
       raise ActiveRecord::Rollback if error_msgs.present?
     end
-    if error_msgs
+    if error_msgs.present?
       redirect_to service_path, flash: {
         task: @task,
         error_messages: error_msgs.flatten
       }
     else
-      if @task.isAccepted = 1
-        flash[:notice] = "#{@task.request.title}を承認しました"
+      if @task.isAccepted == true
+        flash[:notice] = "「#{@task.request.title}」を承認しました"
+        redirect_to service_path
       else
-        flash[:notice] = "#{@task.request.title}を拒否しました"
+        flash[:notice] = "「#{@task.request.title}」を拒否しました"
+        redirect_to tasks_rejected_path
       end
-      redirect_to service_path
     end
   end
 
   def task
   end
 
-  def delete
+  def destroy
+    task = Task.find(params[:id])
+    error_msgs = []
+    ActiveRecord::Base.transaction do
+      if task.request_id
+        if !task.request.update({isChecked: false})
+          error_msgs << task.request.errors.full_messages
+        end
+      else
+        error_msgs << 'Request_id is empty'
+      end
+      if !task.destroy
+        error_msgs << task.errors.full_messages
+      end
+      raise ActiveRecord::Rollback if error_msgs.present?
+    end
+    if error_msgs.present?
+      redirect_to service_path, flash: {
+        task: task,
+        error_messages: error_msgs.flatten
+      }
+    else
+      flash[:notice] = "「#{task.request.title}」をRequest Listに戻しました"
+      redirect_to service_path
+    end
   end
 
   def show

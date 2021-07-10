@@ -118,7 +118,7 @@
                         </div>
                         <div class="mt-auto flex flex-row">
                             <input type="button" value="Done" onclick="document.getElementById( 'complete_form' ).action = '/tasks/<%= task.id %>'; document.getElementById( 'task_request_id' ).value = '<%= task.request.id %>'; document.getElementById( 'task_isDone' ).value = '1';" class="h-8 py-1 px-4 flex-1 font-semibold text-l shadow-md rounded-bl-lg text-white bg-green-500 hover:bg-green-700">
-                            <input type="button" value="Cancel" onclick="document.getElementById( 'task_request_id' ).value = '<%= task.request.id %>'; document.getElementById( 'task_isAccepted' ).value = '0';;" class="h-8 py-1 px-4 flex-1 font-semibold text-l shadow-md rounded-br-lg text-white bg-red-500 hover:bg-red-700">
+                            <%= link_to "Cancel", task, method: :delete, class: "h-8 py-1 px-4 flex-1 text-center font-semibold text-l shadow-md rounded-br-lg text-white bg-red-500 hover:bg-red-700" %>
                         </div>
                     </div>
 
@@ -148,7 +148,7 @@
                     </div>
                     <div class="">
                         <%= f.label :comment, 'Comment', class: 'sr-only' %>
-                        <%= f.text_area :comment, rows: 5, class: 'appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm', placeholder: 'Comment:' %>
+                        <%= f.text_area :comment, rows: 5, class: 'appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm', placeholder: 'Comment:' %>
                     </div>
                     <div class="">
                         <%= f.submit 'Send', class: 'm-2 py-2 px-4 font-semibold rounded-lg shadow-md border-2 border-black text-black bg-white hover:bg-gray-100' %>
@@ -169,7 +169,7 @@
                     </div>
                     <div class="">
                         <%= f.label :comment, 'Comment', class: 'sr-only' %>
-                        <%= f.text_area :comment, rows: 5, class: 'appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm', placeholder: 'Comment:' %>
+                        <%= f.text_area :comment, rows: 5, class: 'appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm', placeholder: 'Comment:' %>
                     </div>
                     <div class="">
                         <%= f.submit 'Send', class: 'm-2 py-2 px-4 font-semibold rounded-lg shadow-md border-2 border-black text-black bg-white hover:bg-gray-100' %>
