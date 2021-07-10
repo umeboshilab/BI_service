@@ -49,7 +49,6 @@
                 </div>
             </div>
 
-
             <div class="rounded-lg border-2 border-gray-500 bg-gray-100 mx-2 my-4 p-2">
                 <p  class="font-sans font-medium text-2xl">Request List</p>
                 <% @requests.each do |request|%>
@@ -64,9 +63,15 @@
                                 <% end %>
                             </div>
                         </div>
-                        <div class="w-max m-2 truncate">
-                            <div class="font-bold text-lg"><%= request.title %></div>
-                            <div class="break-word text-base"><%= request.message %></div>
+                        <div class="w-max flex flex-col flex-grow justify-between truncate">
+                            <div class="m-2">
+                                <div class="font-bold text-lg"><%= request.title %></div>
+                                <div class="break-word text-base"><%= request.message %></div>
+                            </div>
+                            <div class="mt-auto flex flex-row">
+                                <input type="button" value="Accept" onclick="document.getElementById( 'task_request_id' ).value = '<%= request.id %>'; document.getElementById( 'task_isAccepted' ).value = '1'; document.getElementById( 'confirmation_message' ).innerHTML = 'Are you accept this request?';" class="h-8 py-1 px-4 flex-1 font-semibold text-l shadow-md text-white bg-green-500 hover:bg-green-700">
+                                <input type="button" value="Reject" onclick="document.getElementById( 'task_request_id' ).value = '<%= request.id %>'; document.getElementById( 'task_isAccepted' ).value = '0'; document.getElementById( 'confirmation_message' ).innerHTML = 'Are you reject this request?';" class="h-8 py-1 px-4 flex-1 font-semibold text-l shadow-md rounded-br-lg text-white bg-red-500 hover:bg-red-700">
+                            </div>
                         </div>
                     </div>
                 <% end %>
@@ -125,5 +130,29 @@
                 <input type="button" value="Done" value="Rejected" onclick="location.href='/tasks/done'" class="h-16 w-1/3 py-2 px-4 font-semibold text-2xl  rounded-lg shadow-md text-white bg-green-500 hover:bg-green-700">
             </div>
         </div>
+
+        <!-- 承認・拒否フォーム -->
+        <div class="bg-gray-100 rounded-lg border-2 border-gray-500 mx-2 my-4 p-2">
+            <p id="confirmation_message" class="font-sans font-medium text-2xl"></p>
+            <div class="m-2">
+                <%= form_with model: @task do |f| %>
+                    <div class="rounded-md shadow-sm -space-y-px">
+                    </div>
+
+                    <div class="">
+                        <%= f.hidden_field :request_id %>
+                        <%= f.hidden_field :isAccepted %>
+                        <%= f.hidden_field :host_user_id, value: 1 %>
+                    </div>
+                    <div class="">
+                        <%= f.label :comment, 'Comment', class: 'sr-only' %>
+                        <%= f.text_area :comment, rows: 5, class: 'appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm', placeholder: 'Comment:' %>
+                    </div>
+                    <div class="">
+                        <%= f.submit 'Send', class: 'm-2 py-2 px-4 font-semibold rounded-lg shadow-md border-2 border-black text-black bg-white hover:bg-gray-100' %>
+                    </div>
+                <% end %>
+            </div>
+        </div>    
     </div>
 </div>
