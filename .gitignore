@@ -41,3 +41,6 @@ yarn-debug.log*
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+
+/public/request_images/*
+!/public/request_images/no_image.png

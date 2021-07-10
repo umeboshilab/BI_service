@@ -58,7 +58,7 @@
                             <div class="w-32 h-32 rounded-l-lg">
                                 <% request_image_path = "public/request_images/#{request.id}_#{request.image}" %>
                                 <% if File.exist?(request_image_path) %>
-                                    <%= image_tag "/request_images/#{request.id}_#{request.image}", class: "object-cover rounded-l-lg h-full" %>
+                                    <%= image_tag "/request_images/#{request.id}_#{request.image.force_encoding("UTF-8")}", class: "object-cover rounded-l-lg h-full" %>
                                 <% else %>
                                     <%= image_tag "/request_images/no_image.png", class: "object-cover rounded-l-lg  h-full" %>
                                 <% end %>
@@ -83,8 +83,12 @@
                         <div class="h-32 rounded-t-lg flex justify-start border-b-2">
                             <div class="left-0 w-32 h-32">
                                 <div class="w-32 h-32 bg-blue-300 rounded-tl-lg">
-                                    <%= task.request.image %>
-                                    <p>a</p>
+                                    <% task_image_path = "public/request_images/#{task.request.id}_#{task.request.image}" %>
+                                    <% if File.exist?(task_image_path) %>
+                                        <%= image_tag "/request_images/#{task.request.id}_#{task.request.image.force_encoding("UTF-8")}", class: "object-cover rounded-l-lg h-full" %>
+                                    <% else %>
+                                        <%= image_tag "/request_images/no_image.png", class: "object-cover rounded-l-lg  h-full" %>
+                                    <% end %>
                                 </div>
                             </div>
 
@@ -117,8 +121,8 @@
 
             </div>
             <div id="transitionButtons" class="flex justify-evenly my-4">
-                <input type="button" value="Rejected" class="h-16 w-1/3 py-2 px-4 font-semibold text-2xl rounded-lg shadow-md text-white bg-red-500 hover:bg-red-700">
-                <input type="button" value="Done" value="Rejected" class="h-16 w-1/3 py-2 px-4 font-semibold text-2xl  rounded-lg shadow-md text-white bg-green-500 hover:bg-green-700">
+                <input type="button" value="Rejected" onclick="location.href='/tasks/rejected'" class="h-16 w-1/3 py-2 px-4 font-semibold text-2xl rounded-lg shadow-md text-white bg-red-500 hover:bg-red-700">
+                <input type="button" value="Done" value="Rejected" onclick="location.href='/tasks/done'" class="h-16 w-1/3 py-2 px-4 font-semibold text-2xl  rounded-lg shadow-md text-white bg-green-500 hover:bg-green-700">
             </div>
         </div>
     </div>
