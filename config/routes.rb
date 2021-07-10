@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   # put  '/tasks/:id' =>   'tasks#update'
   get '/requests/new' =>   'requests#new' 
   post '/requests' =>   'requests#create'
+  get '/tasks/rejected' => 'tasks#index_rejected'
+  get '/tasks/done' => 'tasks#index_done'
   # post '/requests/:id' =>   'requests#checkRequest'
   # put  '/requests/:id' =>   'requests#report'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
