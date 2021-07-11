@@ -49,7 +49,6 @@
                 </div>
             </div>
 
-
             <div class="rounded-lg border-2 border-gray-500 bg-gray-100 mx-2 my-4 p-2">
                 <p  class="font-sans font-medium text-2xl">Request List</p>
                 <% @requests.each do |request|%>
@@ -58,15 +57,21 @@
                             <div class="w-32 h-32 rounded-l-lg">
                                 <% request_image_path = "public/request_images/#{request.id}_#{request.image}" %>
                                 <% if File.exist?(request_image_path) %>
-                                    <%= image_tag "/request_images/#{request.id}_#{request.image}", class: "object-cover rounded-l-lg h-full" %>
+                                    <%= image_tag "/request_images/#{request.id}_#{request.image.force_encoding("UTF-8")}", class: "object-cover rounded-l-lg h-full" %>
                                 <% else %>
                                     <%= image_tag "/request_images/no_image.png", class: "object-cover rounded-l-lg  h-full" %>
                                 <% end %>
                             </div>
                         </div>
-                        <div class="w-max m-2 truncate">
-                            <div class="font-bold text-lg"><%= request.title %></div>
-                            <div class="break-word text-base"><%= request.message %></div>
+                        <div class="flex flex-col flex-grow justify-between truncate">
+                            <div class="m-2">
+                                <div class="font-bold text-lg"><%= request.title %></div>
+                                <div class="break-word text-base"><%= request.message %></div>
+                            </div>
+                            <div class="mt-auto flex flex-row">
+                                <input type="button" value="Accept" onclick="document.getElementById( 'task_request_id' ).value = '<%= request.id %>'; document.getElementById( 'task_isAccepted' ).value = '1'; document.getElementById( 'confirmation_message' ).innerHTML = 'Are you accept this request?';" class="h-8 py-1 px-4 flex-1 font-semibold text-l shadow-md text-white bg-green-500 hover:bg-green-700">
+                                <input type="button" value="Reject" onclick="document.getElementById( 'task_request_id' ).value = '<%= request.id %>'; document.getElementById( 'task_isAccepted' ).value = '0'; document.getElementById( 'confirmation_message' ).innerHTML = 'Are you reject this request?';" class="h-8 py-1 px-4 flex-1 font-semibold text-l shadow-md rounded-br-lg text-white bg-red-500 hover:bg-red-700">
+                            </div>
                         </div>
                     </div>
                 <% end %>
@@ -79,18 +84,23 @@
                 <%# <hr> %>
                 <p  class="font-sans font-medium text-2xl">Accepted List</p>
                 <% @tasks.each do |task| %>
-                    <div id="acceptedList", class="h-64 bg-white mx-2 my-4 rounded-lg shadow-md">
+                    <div id="acceptedList", class="flex flex-col h-64 bg-white mx-2 my-4 rounded-lg shadow-md">
                         <div class="h-32 rounded-t-lg flex justify-start border-b-2">
                             <div class="left-0 w-32 h-32">
                                 <div class="w-32 h-32 bg-blue-300 rounded-tl-lg">
-                                    <%= task.request.image %>
-                                    <p>a</p>
+                                    <% task_image_path = "public/request_images/#{task.request.id}_#{task.request.image}" %>
+                                    <% if File.exist?(task_image_path) %>
+                                        <%= image_tag "/request_images/#{task.request.id}_#{task.request.image.force_encoding("UTF-8")}", class: "object-cover rounded-l-lg h-full" %>
+                                    <% else %>
+                                        <%= image_tag "/request_images/no_image.png", class: "object-cover rounded-l-lg  h-full" %>
+                                    <% end %>
                                 </div>
                             </div>
-
-                            <div class="w-full m-2">
-                                <div class="truncate font-bold text-lg w-max"><%= task.request.title %></div>
-                                <div class="break-word text-base"><%= task.request.message %></div>
+                            <div class="flex flex-col flex-grow justify-between truncate">
+                                <div class="m-2">
+                                    <div class="truncate font-bold text-lg w-max"><%= task.request.title %></div>
+                                    <div class="break-word text-base"><%= task.request.message %></div>
+                                </div>
                             </div>
                         </div>
 
@@ -106,6 +116,10 @@
                                 <%= task.comment %>
                             </div>
                         </div>
+                        <div class="mt-auto flex flex-row">
+                            <input type="button" value="Done" onclick="document.getElementById( 'complete_form' ).action = '/tasks/<%= task.id %>'; document.getElementById( 'task_request_id' ).value = '<%= task.request.id %>'; document.getElementById( 'task_isDone' ).value = '1';" class="h-8 py-1 px-4 flex-1 font-semibold text-l shadow-md rounded-bl-lg text-white bg-green-500 hover:bg-green-700">
+                            <%= link_to "Cancel", task, method: :delete, class: "h-8 py-1 px-4 flex-1 text-center font-semibold text-l shadow-md rounded-br-lg text-white bg-red-500 hover:bg-red-700" %>
+                        </div>
                     </div>
 
 
@@ -117,9 +131,51 @@
 
             </div>
             <div id="transitionButtons" class="flex justify-evenly my-4">
-                <input type="button" value="Rejected" class="h-16 w-1/3 py-2 px-4 font-semibold text-2xl rounded-lg shadow-md text-white bg-red-500 hover:bg-red-700">
-                <input type="button" value="Done" value="Rejected" class="h-16 w-1/3 py-2 px-4 font-semibold text-2xl  rounded-lg shadow-md text-white bg-green-500 hover:bg-green-700">
+                <input type="button" value="Rejected" onclick="location.href='/tasks/rejected'" class="h-16 w-1/3 py-2 px-4 font-semibold text-2xl rounded-lg shadow-md text-white bg-red-500 hover:bg-red-700">
+                <input type="button" value="Done" value="Rejected" onclick="location.href='/tasks/done'" class="h-16 w-1/3 py-2 px-4 font-semibold text-2xl  rounded-lg shadow-md text-white bg-green-500 hover:bg-green-700">
             </div>
         </div>
+
+        <!-- 承認・拒否フォーム -->
+        <div class="bg-gray-100 rounded-lg border-2 border-gray-500 mx-2 my-4 p-2">
+            <p id="confirmation_message" class="font-sans font-medium text-2xl"></p>
+            <div class="m-2">
+                <%= form_with model: @task do |f| %>
+                    <div class="">
+                        <%= f.hidden_field :request_id %>
+                        <%= f.hidden_field :isAccepted %>
+                        <%= f.hidden_field :host_user_id, value: 1 %>
+                    </div>
+                    <div class="">
+                        <%= f.label :comment, 'Comment', class: 'sr-only' %>
+                        <%= f.text_area :comment, rows: 5, class: 'appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm', placeholder: 'Comment:' %>
+                    </div>
+                    <div class="">
+                        <%= f.submit 'Send', class: 'm-2 py-2 px-4 font-semibold rounded-lg shadow-md border-2 border-black text-black bg-white hover:bg-gray-100' %>
+                    </div>
+                <% end %>
+            </div>
+        </div> 
+        
+        <!-- 完了フォーム -->
+        <div class="bg-gray-100 rounded-lg border-2 border-gray-500 mx-2 my-4 p-2">
+            <p class="font-sans font-medium text-2xl">Have you completed this task?</p>
+            <div class="m-2">
+                <%= form_with model: @task, id: "complete_form", method: 'patch' do |f| %>
+                    <div class="">
+                        <%= f.hidden_field :request_id %>
+                        <%= f.hidden_field :isDone %>
+                        <%= f.hidden_field :host_user_id, value: 1 %>
+                    </div>
+                    <div class="">
+                        <%= f.label :comment, 'Comment', class: 'sr-only' %>
+                        <%= f.text_area :comment, rows: 5, class: 'appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm', placeholder: 'Comment:' %>
+                    </div>
+                    <div class="">
+                        <%= f.submit 'Send', class: 'm-2 py-2 px-4 font-semibold rounded-lg shadow-md border-2 border-black text-black bg-white hover:bg-gray-100' %>
+                    </div>
+                <% end %>
+            </div>
+        </div> 
     </div>
 </div>

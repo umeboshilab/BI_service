@@ -68,7 +68,7 @@ flag = true
 Request.where(isChecked: true).each do |user|
     Task.create({
         request_id: user.id,
-        host_user_id: flag ? 1 : 0,
+        host_user_id: flag ? 2 : 1,
         comment: flag ? '承認' : '否承認',
         isAccepted: flag,
         isDone: false
