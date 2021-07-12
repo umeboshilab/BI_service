@@ -1,3 +1,10 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+
+
+
+.popup.is-show {
+    opacity: 1;
+    visibility: visible;
+  }

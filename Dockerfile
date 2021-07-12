@@ -19,6 +19,7 @@ COPY Gemfile.lock /app/Gemfile.lock
 RUN bundle install
 COPY . /app
 
+RUN yarn add -D hard-source-webpack-plugin
 RUN rails tailwindcss:install
 
 # Add a script to be executed every time the container starts.
