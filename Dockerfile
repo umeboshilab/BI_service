@@ -25,8 +25,11 @@ RUN rails tailwindcss:install
 
 # Add a script to be executed every time the container starts.
 COPY entrypoint.sh /usr/bin/
+COPY wait-for-it.sh /usr/bin/
+
 RUN chmod +x /usr/bin/entrypoint.sh
-ENTRYPOINT ["entrypoint.sh"]
+RUN chmod +x /usr/bin/wait-for-it.sh
+ENTRYPOINT ["wait-for-it.sh", "db:3306", "-t", "0", "--", "entrypoint.sh"]
 EXPOSE 3000
 
 # Configure the main process to run when running the image

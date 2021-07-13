@@ -14,15 +14,32 @@ services:
       MYSQL_USER: docker
       MYSQL_PASSWORD: docker
     ports:
-      - '3307:3307'
+      - '3306:3306'
+    networks:
+      - bi_service_network
     # command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --explicit_defaults_for_timestamp
 
-  web:
+  app:
     build: .
-    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    command: bash -c "rm -f tmp/pids/server.pid && echo 'remove' && bundle exec rails s -p 3000 -b '0.0.0.0'"
     volumes:
       - .:/app
     ports:
       - "3000:3000"
+    networks:
+      - bi_service_network
     depends_on:
       - db
+
+  # web:
+  #   build: ./nginx_docker
+  #   ports:
+  #     - 80:80
+  #   networks:
+  #     - bi_service_network
+  #   depends_on:
+  #     - app
+
+networks:
+  bi_service_network:
+    external: true
