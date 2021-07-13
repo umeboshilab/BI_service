@@ -19,9 +19,8 @@ COPY Gemfile.lock /app/Gemfile.lock
 RUN bundle install
 COPY . /app
 
+RUN yarn add -D hard-source-webpack-plugin
 RUN rails tailwindcss:install
-# RUN yarn add tailwindcss postcss autoprefixer @tailwindcss/forms @tailwindcss/typography @tailwindcss/aspect-ratio
-
 
 # Add a script to be executed every time the container starts.
 COPY entrypoint.sh /usr/bin/
