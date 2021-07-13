@@ -6,13 +6,23 @@ document.addEventListener('turbolinks:load', () => {
         var index = elem.getAttribute("data-index");
         var title = elem.getAttribute("data-title");
         var message = elem.getAttribute("data-message");
+        var imagePath = elem.children[0].children[0].children[0].src;
+        var imageInForm = document.getElementById('requestCheckFormImg');
 
-        temp = document.getElementById('task_request_id');
-        temp.value = index;
+        temp = document.getElementById('checkFormRequest_id');
+        temp.value = String(index);
+
         document.getElementById('requestCheckFormTitle').innerHTML = title;
         document.getElementById('requestCheckFormMessage').innerHTML = message;
 
-        console.log(temp);
+        // console.log(imagePath + "/request_images/no_image.png");
+        if (~imagePath.indexOf("/request_images/no_image.png")) {
+            imageInForm.classList.add("hidden");
+        } else {
+            imageInForm.classList.remove("hidden");
+            imageInForm.src = imagePath;
+        }
+
 
         let checkForm = document.getElementById('popupRequestForm');
         checkForm.classList.remove("hidden");
@@ -26,24 +36,22 @@ document.addEventListener('turbolinks:load', () => {
 
     function acceptingRequestForm() {
         console.log("accepted");
-        document.getElementById('task_isAccepted').value = '1';
+        document.getElementById('task_isAccepted').value = "1";
 
-        // submitRequestCheckForm();
-        // hideRequestCheckForm();
+        submitRequestCheckForm();
     }
 
     function rejectingRequestForm() {
         console.log("rejected");
+        document.getElementById('task_isAccepted').value = "0";
 
-        document.getElementById('task_isAccepted').value = '0';
-
-        // submitRequestCheckForm();
-        // hideRequestCheckForm();
+        submitRequestCheckForm();
     }
 
-    function submitRequestCheckForm() { //Ruby側で全部終えてありそう
-        var index = document.getElementById('task_request_id').value;
-        console.log(index);
+    function submitRequestCheckForm() { //入力内容の監視
+        // hideRequestCheckForm();
+        // console.log(document.getElementById('task_isAccepted').value);
+        // console.log(document.getElementById('task_request_id').value);
     }
 
 
