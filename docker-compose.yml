@@ -1,27 +1,29 @@
 version: '3'
 services:
-  db:
-    # image: mariadb
-    image: mysql:5.7
+  # db:
+  #   # image: mariadb
+  #   image: mysql:5.7
 
-    # https://qiita.com/azul915/items/5b7063cbc80192343fc0
-    # volumes:
-    #   - ./tmp/db:/var/lib/mysql/data # これを残しているとDBをinitializeできなかった
+  #   # https://qiita.com/azul915/items/5b7063cbc80192343fc0
+  #   # volumes:
+  #   #   - ./tmp/db:/var/lib/mysql/data # これを残しているとDBをinitializeできなかった
 
-    environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: test
-      MYSQL_USER: docker
-      MYSQL_PASSWORD: docker
-    ports:
-      - '3306:3306'
-    networks:
-      - bi_service_network
-    # command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --explicit_defaults_for_timestamp
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: password
+  #     MYSQL_DATABASE: test
+  #     MYSQL_USER: docker
+  #     MYSQL_PASSWORD: docker
+  #   ports:
+  #     - '3306:3306'
+  #   networks:
+  #     - bi_service_network
+  #   # command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --explicit_defaults_for_timestamp
 
   app:
     build: .
-    command: bash -c "rm -f tmp/pids/server.pid && echo 'remove' && rails s"
+    # command: bash -c "rm -f tmp/pids/server.pid && echo 'remove' && rails s"
+    # 本番用
+    command: bash -c "rm -f tmp/pids/server.pid && echo 'remove' && rails s -e production"
     volumes:
       - .:/app
       - public-data:/app/public
@@ -31,8 +33,8 @@ services:
       - "3000:3000"
     networks:
       - bi_service_network
-    depends_on:
-      - db
+    # depends_on:
+    #   - db
   
   web:
     build: ./nginx_docker

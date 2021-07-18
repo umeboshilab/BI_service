@@ -29,7 +29,9 @@ COPY wait-for-it.sh /usr/bin/
 
 RUN chmod +x /usr/bin/entrypoint.sh
 RUN chmod +x /usr/bin/wait-for-it.sh
-ENTRYPOINT ["wait-for-it.sh", "db:3306", "-t", "0", "--", "entrypoint.sh"]
+# ENTRYPOINT ["wait-for-it.sh", "db:3306", "-t", "0", "--", "entrypoint.sh"]
+# 本番用
+ENTRYPOINT ["entrypoint.sh"]
 EXPOSE 3000
 
 # Configure the main process to run when running the image
