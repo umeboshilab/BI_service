@@ -21,15 +21,31 @@ services:
 
   app:
     build: .
-    command: bash -c "rm -f tmp/pids/server.pid && echo 'remove' && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    command: bash -c "rm -f tmp/pids/server.pid && echo 'remove' && rails s"
     volumes:
       - .:/app
+      - public-data:/app/public
+      - tmp-data:/app/tmp
+      - log-data:/app/log
     ports:
       - "3000:3000"
     networks:
       - bi_service_network
     depends_on:
       - db
+  
+  web:
+    build: ./nginx_docker
+    volumes:
+      - public-data:/app/public
+      - tmp-data:/app/tmp
+    ports:
+      - 80:80
+    depends_on:
+      - app
+    networks:
+      - bi_service_network
+
 
   # web:
   #   build: ./nginx_docker
@@ -39,6 +55,11 @@ services:
   #     - bi_service_network
   #   depends_on:
   #     - app
+
+volumes:
+  public-data:
+  tmp-data:
+  log-data:
 
 networks:
   bi_service_network:
