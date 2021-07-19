@@ -23,14 +23,12 @@ services:
     build: .
     # command: bash -c "rm -f tmp/pids/server.pid && echo 'remove' && rails s"
     # 本番用
-    command: bash -c "rm -f tmp/pids/server.pid && echo 'remove' && rails s -e production"
+    command: bash -c "rm -f tmp/pids/server.pid && echo 'remove' && bundle exec puma -C config/puma.rb -e production"
     volumes:
       - .:/app
       - public-data:/app/public
       - tmp-data:/app/tmp
       - log-data:/app/log
-    ports:
-      - "3000:3000"
     networks:
       - bi_service_network
     # depends_on:
