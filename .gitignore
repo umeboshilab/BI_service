@@ -44,3 +44,12 @@ yarn-debug.log*
 
 /public/request_images/*
 !/public/request_images/no_image.png
+
+.env
+.env.prod
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity
