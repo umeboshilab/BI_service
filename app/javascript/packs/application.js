@@ -17,3 +17,5 @@ ActiveStorage.start()
 
 // require("../UI/index.js")
 import "./UI/index"
+
+import "stylesheets/application"
