@@ -1,0 +1,20 @@
+<%= form_with model: @user do |f| %>
+    <div class="">
+        <%= f.label :name, 'ユーザー名' %>
+        <%= f.text_field :name, class: '' %>
+    </div>
+    <div class="">
+        <%= f.label :email, 'メールアドレス' %>
+        <%= f.text_field :email, class: '' %>
+    </div>
+    <div class="">
+        <%= f.label :password, 'パスワード' %>
+        <%= f.password_field :password, class: '' %>
+    </div>
+    <div class="">
+        <%= f.label :password_confirmation, 'パスワード（確認）' %>
+        <%= f.password_field :password_confirmation, class: '' %>
+    </div>
+
+    <%= f.submit '作成', class: '' %>
+<% end %>
