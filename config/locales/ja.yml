@@ -1,7 +1,0 @@
-ja:
-  activerecord:
-    attributes:
-      user:
-        name: ユーザー名
-        password: パスワード
-        password_confirmation: パスワード（確認）

@@ -38,19 +38,18 @@ Request.create!( # !をつけると例外処理にできるらしい。
     })
 end    
 
-User.new({
-    name: 'root', 
-    email: 'root@email.com',
-    password: 'rootpass', 
-    password_confirmation: 'rootpass',
-}).save!
-
-User.new({    
-    name: 'test',
-    email: 'test@email.com',
-    password: 'testpass',
-    password_confirmation: 'testpass',
-}).save!
+User.create!(
+    [
+        {
+            name: 'root', 
+            password: 'password', 
+        },
+        {    
+            name: 'hage',
+            password: 'password',
+        }
+    ]
+)
 
 HostUser.create!(
     [
