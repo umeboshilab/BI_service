@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'sessions/create'
+  get 'sessions/destroy'
   # get 'service/index'
   root 'service#index'
   get 'top/index'
