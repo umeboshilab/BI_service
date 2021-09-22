@@ -1,12 +1,11 @@
 Rails.application.routes.draw do
-  # get 'service/index'
   root 'service#index'
+  post 'login', to: 'sessions#create'
+  delete 'logout', to: 'sessions#destroy'
+  # get 'service/index'
   get 'top/index'
-  post 'users/create'
   # put  'users/:id' => 'users/update'
   get 'service' => 'service#index'
-  get  'users' =>   'users#show'
-  post  'users' =>  'users#signin'
   post  'tasks' =>  'tasks#create'
   delete '/tasks/:id' => 'tasks#destroy'
   get  '/tasks/list' =>   'tasks#show'
@@ -18,6 +17,7 @@ Rails.application.routes.draw do
   # post '/requests/:id' =>   'requests#checkRequest'
   # put  '/requests/:id' =>   'requests#report'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  resources :users, only: %i[new create]
 end
 
 
