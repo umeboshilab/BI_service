@@ -8,7 +8,7 @@ class UsersController < ApplicationController
         error_msgs << user.errors.full_messages
         raise ActiveRecord::Rollback
       end
-      if params.require(:user).permit(:is_host)
+      if params[:user][:is_host]
         host_user = HostUser.new({user_id: user.id, image: 'no_icon.png'})
         if !host_user.save
           error_msgs << host_user.errors.full_messages

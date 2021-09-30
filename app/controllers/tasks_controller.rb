@@ -1,6 +1,17 @@
 class TasksController < ApplicationController
   def create
+    if !@current_user
+      flash[:notice] = "ログインしてください"
+      redirect_to service_path and return
+    end
+    host_user = HostUser.find_by(user_id: @current_user.id)
+    if !host_user
+      flash[:notice] = "Host Userでないためリクエストの承認/拒否はできません"
+      redirect_to service_path and return
+    end
+
     @task = Task.new(task_params)
+    @task[:host_user_id] = host_user.id
     error_msgs = []
     ActiveRecord::Base.transaction do
       if !@task.save
