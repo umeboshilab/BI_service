@@ -114,8 +114,13 @@
                             <div class="flex justify-between">
                                 <div class="my-auto font-bold text-lg inset-y-0">承認理由</div>
                                 <div>
-                                    <div class="inline-block align-middle rounded-full h-12 w-12 bg-red-100"><%= task.host_user.image %></div>
-                                    <div class="inline-block align-middle font-bold text-lg w-max mx-2"><%= task.host_user.position %></div>
+                                    <% task_image_path = "public/host_user_icons/#{task.host_user.id}_#{task.host_user.image}" %>
+                                    <% if File.exist?(task_image_path) %>
+                                        <%= image_tag "/host_user_icons/#{request.id}_#{request.image.force_encoding("UTF-8")}", class: "w-32 h-32 object-cover rounded-l-lg" %>
+                                    <% else %>
+                                        <%= image_tag "/host_user_icons/no_icon.png", class: "inline-block align-middle rounded-full h-12 w-12 bg-red-100" %>
+                                    <% end %>
+                                        <div class="inline-block align-middle font-bold text-lg w-max mx-2"><%= task.host_user.position %></div>
                                 </div>
                             </div>
                             <div>
