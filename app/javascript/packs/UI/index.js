@@ -3,9 +3,9 @@ document.addEventListener('turbolinks:load', () => {
     function popupRequestCheckForm(e) {
         var e = e || window.event;
         var elem = e.currentTarget || e.srcElement;
-        var index = elem.getAttribute("data-index");
-        var title = elem.getAttribute("data-title");
-        var message = elem.getAttribute("data-message");
+        var index = elem.getAttribute("request-index");
+        var title = elem.getAttribute("request-title");
+        var message = elem.getAttribute("request-message");
         var imagePath = elem.children[0].children[0].children[0].src;
         var imageInForm = document.getElementById('requestCheckFormImg');
 
@@ -22,7 +22,6 @@ document.addEventListener('turbolinks:load', () => {
             imageInForm.classList.remove("hidden");
             imageInForm.src = imagePath;
         }
-
 
         let checkForm = document.getElementById('popupRequestForm');
         checkForm.classList.remove("hidden");
@@ -54,7 +53,6 @@ document.addEventListener('turbolinks:load', () => {
         // console.log(document.getElementById('task_request_id').value);
     }
 
-
     // カードのクリックをpopupに対応させる
     let requestCards = document.getElementsByClassName('requestCardButton');
     for (var i = 0; i < requestCards.length; i++) {
@@ -73,6 +71,43 @@ document.addEventListener('turbolinks:load', () => {
 
     let rejectButton = document.getElementById('rejectButton');
     rejectButton.onclick = rejectingRequestForm;
+
+
+
+
+    function popupTaskDoneForm(e) {
+        var e = e || window.event;
+        var elem = e.currentTarget || e.srcElement;
+        var index = elem.getAttribute("task-index");
+        var title = elem.getAttribute("task-title");
+        var message = elem.getAttribute("task-message");
+        var imagePath = elem.children[0].children[0].children[0].src;
+        var imageInForm = document.getElementById('requestCheckFormImg');
+
+        temp = document.getElementById('checkFormRequest_id');
+        temp.value = String(index);
+
+        document.getElementById('requestCheckFormTitle').innerHTML = title;
+        document.getElementById('requestCheckFormMessage').innerHTML = message;
+
+        // console.log(imagePath + "/request_images/no_image.png");
+        if (~imagePath.indexOf("/request_images/no_image.png")) {
+            imageInForm.classList.add("hidden");
+        } else {
+            imageInForm.classList.remove("hidden");
+            imageInForm.src = imagePath;
+        }
+
+
+        let checkForm = document.getElementById('popupRequestForm');
+        checkForm.classList.remove("hidden");
+    }
+
+
+
+
+
+
 
 })
 
