@@ -18,7 +18,10 @@
   <body>
     <header class="relative bg-white ">
       <div class="flex w-auto justify-between border-b-2 py-2 px-4">
-        <div class="font-sans text-4xl mx-2 ">BI_service(logo)</div>
+        <div class="font-sans text-4xl mx-2 ">
+          <%# BI_service(logo) %>
+          <%= link_to("BI_service(logo)", "/service") %>
+        </div>
         <div class="flex flex-row">
           <% if @current_user %>
             <p class="py-2 px-4 mx-2 font-semibold">
@@ -27,7 +30,7 @@
             <%= link_to 'Log out', logout_path, method: :delete, class: 'py-2 px-4 mx-2 font-semibold rounded-lg shadow-md text-white bg-green-500 hover:bg-green-700' %>
           <% else %>
             <%= link_to 'Log in', login_path, class: 'py-2 px-4 mx-2 font-semibold rounded-lg shadow-md text-white bg-green-500 hover:bg-green-700' %>
-            <%= link_to 'Sign up', new_user_path, class: 'py-2 px-4 mx-2 font-semibold rounded-lg shadow-md text-white bg-green-500 hover:bg-green-700' %>
+            <%= link_to 'Sign up', new_user_path, class: 'py-2 px-4 mx-2 font-semibold rounded-lg shadow-md border-2 border-black text-black bg-white hover:bg-gray-300' %>
           <% end %>
         </div>
       </div>
