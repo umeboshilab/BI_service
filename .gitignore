@@ -44,6 +44,8 @@ yarn-debug.log*
 
 /public/request_images/*
 !/public/request_images/no_image.png
+/public/host_user_icons/*
+!/public/host_user_icons/no_icon.png
 
 .env
 .env.prod

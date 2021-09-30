@@ -25,6 +25,10 @@
         <%= f.label :password_confirmation, 'パスワード（確認）' %>
         <%= f.password_field :password_confirmation, class: '' %>
     </div>
+    <div class="">
+        <%= f.label :password_confirmation, '管理者として登録' %>
+        <%= f.check_box 'is_host', {}, true, false %>
+    </div>
 
     <%= f.submit '作成', class: '' %>
 <% end %>
