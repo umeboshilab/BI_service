@@ -74,4 +74,8 @@ Rails.application.configure do
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
   config.web_console.whitelisted_ips = '0.0.0.0/0'
+
+  # 変更を即座に反映させる
+  config.cache_classes = false
+  config.reload_classes_only_on_change = false
 end

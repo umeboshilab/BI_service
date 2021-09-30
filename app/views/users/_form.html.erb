@@ -1,4 +1,14 @@
-<%= form_with model: @user do |f| %>
+<% if flash[:error_messages] %>
+<div class="text-red-500">
+    <ul>
+        <% flash[:error_messages].each do |msg| %>
+            <li><%= msg %></li>
+        <% end %>
+    </ul>
+</div>
+<% end %>
+
+<%= form_with model: @user, url: '/users' do |f| %>
     <div class="">
         <%= f.label :name, 'ユーザー名' %>
         <%= f.text_field :name, class: '' %>
