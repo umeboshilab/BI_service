@@ -14,8 +14,8 @@ ActiveRecord::Schema.define(version: 2021_07_02_145603) do
 
   create_table "host_users", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.string "position", null: false
-    t.binary "image"
+    t.string "position", default: "管理者", null: false
+    t.string "image"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_host_users_on_user_id"
