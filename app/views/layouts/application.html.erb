@@ -18,9 +18,16 @@
     <header class="relative bg-white ">
       <div class="flex w-auto justify-between border-b-2 py-2 px-4">
         <div class="font-sans text-4xl mx-2 ">BI_service(logo)</div>
-        <div>
-          <input type="button" value="Sign in" class="py-2 px-4 mx-2 font-semibold rounded-lg shadow-md text-gray-500 hover:text-gray-700">
-          <%= link_to 'Sign up', new_user_path, class: 'py-2 px-4 mx-2 font-semibold rounded-lg shadow-md text-white bg-green-500 hover:bg-green-700' %>
+        <div class="flex flex-row">
+          <% if @current_user %>
+            <p class="py-2 px-4 mx-2 font-semibold">
+              <%= @current_user.name %>
+            </p>
+            <%= link_to 'Log out', logout_path, method: :delete, class: 'py-2 px-4 mx-2 font-semibold rounded-lg shadow-md text-white bg-green-500 hover:bg-green-700' %>
+          <% else %>
+            <%= link_to 'Log in', login_path, class: 'py-2 px-4 mx-2 font-semibold rounded-lg shadow-md text-white bg-green-500 hover:bg-green-700' %>
+            <%= link_to 'Sign up', new_user_path, class: 'py-2 px-4 mx-2 font-semibold rounded-lg shadow-md text-white bg-green-500 hover:bg-green-700' %>
+          <% end %>
         </div>
       </div>
     </header>

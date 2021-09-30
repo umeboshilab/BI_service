@@ -1,0 +1,12 @@
+<%= form_with scope: :session, url: login_path do |f| %>
+    <div class="">
+        <%= f.label :email, 'メールアドレス' %>
+        <%= f.text_field :email, class: '' %>
+    </div>
+    <div class="">
+        <%= f.label :password, 'パスワード' %>
+        <%= f.password_field :password, class: '' %>
+    </div>
+
+    <%= f.submit 'ログイン', class: '' %>
+<% end %>
