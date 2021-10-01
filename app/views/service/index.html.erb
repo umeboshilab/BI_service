@@ -1,5 +1,36 @@
 <%# <%= javascript_include_tag "./UI/index.js" %> 
 
+<div class="mt-10">
+    <img src="/request_images/no_image.png" class="max-w-full max-h-full h-64 mx-auto object-contain">
+    <div class="w-auto mx-auto my-10">
+
+        <div class="text-center text-lg w-5/6 mx-auto">
+            <p>NEGARIAは、組織のメンバーが抱く「願い」を集め、着実に「叶える」ための新しいToDoリストです。</p>
+            <br>
+            <br>
+            <p>社会生活を送っていると，所属する組織に固有の○○や××な悩みを抱えることがあると思います．しかし，よほど自由な組織でない限り，上層部にその悩みをお願いする行為をしただけでも，「我儘で面倒ごとを増やす存在だ」と思われる可能性があります．NEGARIAは，そのような組織に対する願いを匿名で集め，上司に要望を知らせることができます．そして，その要望について上層部がどう認識し考えたかわかります．</p>
+        </div>
+
+        <p class="mt-20 text-2xl text-center">使い方</p>
+        <div class=" w-2/3 mx-auto my-4 text-center text-xl flex flex-row justify-evenly center">
+            <div class="m-2">
+                <img src="/process1.png" class="max-w-full max-h-full h-50 mx-auto m-2 object-contain">
+                1. メンバーは組織への<br>願いを投稿
+            </div>
+            <div class="m-2">
+                <img src="/process2.png" class="max-w-full max-h-full h-50 mx-auto m-2 object-contain">
+                2. 管理者は願いを<br>承認/非承認
+            </div>
+            <div class="m-2">
+                <img src="/process1.png" class="max-w-full max-h-full h-50 mx-auto m-2 object-contain">
+                3. 管理者を中心に<br>ToDoを達成
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
 <div id="bodyWrapper" class="bg-white">
     <div id="serviceContainer" class="w-11/12 mx-auto flex-wrap md:flex justify-evenly p-4 center">
         <div id="requestsBody" class="lg:w-5/12  w-5/6">
@@ -90,8 +121,8 @@
                 <%# <hr> %>
                 <p  class="font-sans font-medium text-2xl">Accepted Tasks</p>
                 <% @tasks.each do |task| %>
-                    <div id="acceptedList", class="flex flex-col h-64 bg-white mx-2 my-4 rounded-lg shadow-md">
-                        <div class="h-32 rounded-t-lg flex justify-start border-b-2">
+                    <div id="acceptedList", class="flex flex-col h-min bg-white mx-2 my-4 rounded-lg shadow-md">
+                        <div class="h-min rounded-t-lg flex justify-start border-b-2">
                             <div class="left-0 w-32 h-32">
                                 <div class="w-32 h-32 bg-white rounded-tl-lg">
                                     <% task_image_path = "public/request_images/#{task.request.id}_#{task.request.image}" %>
@@ -102,13 +133,14 @@
                                     <% end %>
                                 </div>
                             </div>
-                            <div class="flex flex-col flex-grow justify-between truncate">
+                            <div class="flex flex-col flex-grow justify-between w-max-full">
                                 <div class="m-2">
-                                    <div class="truncate font-bold text-lg w-max"><%= task.request.title %></div>
-                                    <div class="break-word text-base text-gray-700"><%= task.request.message %></div>
+                                    <div class="overflow-hidden font-bold text-lg w-auto"><%= task.request.title %></div>
+                                    <div class="break-all text-base text-gray-700 h-auto"><%= task.request.message %></div>
                                 </div>
                             </div>
                         </div>
+
 
                         <div class="m-2">
                             <div class="flex justify-between">
@@ -123,7 +155,7 @@
                                         <div class="inline-block align-middle font-bold text-lg w-max mx-2"><%= task.host_user.position %></div>
                                 </div>
                             </div>
-                            <div>
+                            <div class="break-all text-base">
                                 <%= task.comment %>
                             </div>
                         </div>
