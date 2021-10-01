@@ -6,7 +6,7 @@ class CreateTasks < ActiveRecord::Migration[6.1]
       # t.references :hostUser, foreign_key: true,  null: false
       t.references(:request, null: false, type: :bigint)
       t.references(:host_user, null: false)
-      t.text :comment
+      t.text :comment, null: false
       t.boolean :isAccepted,  null: false
       t.boolean :isDone, default: false
       # t.integer :follower
