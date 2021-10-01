@@ -8,8 +8,8 @@ class RequestsController < ApplicationController
     error_msgs = []
 
     ActiveRecord::Base.transaction do
-      if Group.find(@current_user.group_id).blank?
-        error_megs << 'グループIDが不正です'
+      if Group.lock.find_by(id: @current_user.group_id).blank?
+        error_msgs << 'グループが存在しないか，削除されました'
         raise ActiveRecord::Rollback
       end
       @request[:group_id] = @current_user.group_id

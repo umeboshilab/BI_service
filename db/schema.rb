@@ -69,5 +69,4 @@ ActiveRecord::Schema.define(version: 2021_10_01_101710) do
   add_foreign_key "host_users", "users"
   add_foreign_key "requests", "groups"
   add_foreign_key "tasks", "groups"
-  add_foreign_key "users", "groups"
 end
