@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 2021_07_02_145603) do
   create_table "tasks", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "request_id", null: false
     t.bigint "host_user_id", null: false
-    t.text "comment"
+    t.text "comment", null: false
     t.boolean "isAccepted", null: false
     t.boolean "isDone", default: false
     t.datetime "created_at", precision: 6, null: false
