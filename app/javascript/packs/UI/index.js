@@ -59,7 +59,6 @@ document.addEventListener('turbolinks:load', () => {
         requestCards[i].onclick = popupRequestCheckForm;
     }
 
-
     // let cardButton = document.getElementById('cardButton');
     // cardButton.onclick = popupRequestCheckForm(1);
 
@@ -75,20 +74,24 @@ document.addEventListener('turbolinks:load', () => {
 
 
 
+
+    // Done側のpopupの実装
     function popupTaskDoneForm(e) {
         var e = e || window.event;
         var elem = e.currentTarget || e.srcElement;
         var index = elem.getAttribute("task-index");
         var title = elem.getAttribute("task-title");
         var message = elem.getAttribute("task-message");
-        var imagePath = elem.children[0].children[0].children[0].src;
-        var imageInForm = document.getElementById('requestCheckFormImg');
+        var imagePath = elem.parentElement.parentElement.children[0].children[0].children[0].children[0].src;
+        var imageInForm = document.getElementById('taskDoneFormImg');
 
-        temp = document.getElementById('checkFormRequest_id');
+        temp = document.getElementById('doneForm_id');
         temp.value = String(index);
 
-        document.getElementById('requestCheckFormTitle').innerHTML = title;
-        document.getElementById('requestCheckFormMessage').innerHTML = message;
+        document.getElementById('complete_form').action = '/tasks/' + index;
+
+        document.getElementById('taskDoneFormTitle').innerHTML = title;
+        document.getElementById('taskDoneFormMessage').innerHTML = message;
 
         // console.log(imagePath + "/request_images/no_image.png");
         if (~imagePath.indexOf("/request_images/no_image.png")) {
@@ -98,13 +101,27 @@ document.addEventListener('turbolinks:load', () => {
             imageInForm.src = imagePath;
         }
 
-
-        let checkForm = document.getElementById('popupRequestForm');
+        let checkForm = document.getElementById('popupDoneForm');
         checkForm.classList.remove("hidden");
     }
+    function hideDoneCheckForm() {
+        let checkForm = document.getElementById('popupDoneForm');
+        checkForm.classList.add("hidden");
+    }
+    // カードのクリックをpopupに対応させる
+    let taskCards = document.getElementsByClassName('taskDoneButton');
+    for (var i = 0; i < taskCards.length; i++) {
+        taskCards[i].onclick = popupTaskDoneForm;
+    }
+    function doneForm() {
+        document.getElementById('task_isDone').value = "1";
+        console.log("done");
+    }
+    let hideDoneForm = document.getElementById('hideDonePopup');
+    hideDoneForm.onclick = hideDoneCheckForm;
 
-
-
+    let doneButton = document.getElementById('doneButton');
+    doneButton.onclick = doneForm;
 
 
 
