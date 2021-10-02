@@ -17,20 +17,22 @@
 
   <body>
     <header class="relative bg-white ">
-      <div class="flex w-auto justify-between border-b-2 py-2 px-4">
-        <div class="font-sans text-4xl mx-2 ">
+      <div class="py-2 px-4 max-h-full min-h-14 sm:min-h-16 flex flex-wrap justify-between border-b-2">
+        <div class="font-sans text-4xl mx-2">
           <%# BI_service(logo) %>
-          <%= link_to("BI_service(logo)", "/service") %>
+          <%# <img src="/NEGARIA_string.png" class="h-12 object-contain", href="/service"> %>
+          <%= link_to image_tag("/NEGARIA_string.png", class: "w-max h-10 sm:h-12 object-contain"), '/service' %>
+          <%# <%= link_to("BI_service(logo)", "/service") %>
         </div>
         <div class="flex flex-row">
           <% if @current_user %>
-            <p class="py-2 px-4 mx-2 font-semibold">
+            <p class="py-2 px-4 mx-2 h-10 sm:h-12 font-semibold">
               <%= @current_user.name %>
             </p>
-            <%= link_to 'Log out', logout_path, method: :delete, class: 'py-2 px-4 mx-2 font-semibold rounded-lg shadow-md text-white bg-green-500 hover:bg-green-700' %>
+            <%= link_to 'Log out', logout_path, method: :delete, class: 'py-2 px-4 mx-2 h-10 sm:h-12 font-semibold rounded-lg shadow-md text-white bg-green-500 hover:bg-green-700' %>
           <% else %>
-            <%= link_to 'Log in', login_path, class: 'py-2 px-4 mx-2 font-semibold rounded-lg shadow-md text-white bg-green-500 hover:bg-green-700' %>
-            <%= link_to 'Sign up', new_user_path, class: 'py-2 px-4 mx-2 font-semibold rounded-lg shadow-md border-2 border-black text-black bg-white hover:bg-gray-300' %>
+            <%= link_to 'Log in', login_path, class: 'py-2 px-4 mx-2 h-10 sm:h-12 min-w-max font-semibold text-sm sm:text-base rounded-lg shadow-md text-white bg-green-500 hover:bg-green-700' %>
+            <%= link_to 'Sign up', new_user_path, class: 'py-2 px-4 mx-2 h-10 sm:h-12 min-w-max font-semibold text-sm sm:text-base rounded-lg shadow-md border-2 border-black text-black bg-white hover:bg-gray-300' %>
           <% end %>
         </div>
       </div>
