@@ -6,10 +6,18 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-Group.create!({
-    name: 'hoge',
-    code: '0000-0000-0000',
-})
+Group.create!(
+    [
+        {
+            name: 'hoge',
+            code: '0000-0000-0000',
+        },
+        {
+            name: 'fuga',
+            code: '1111-1111-1111',
+        }
+    ]
+)
 
 Request.create!( # !をつけると例外処理にできるらしい。
     [
@@ -48,11 +56,19 @@ Request.create!( # !をつけると例外処理にできるらしい。
 end    
 
 User.new({
-    name: 'root', 
-    email: 'root@email.com',
-    password: 'rootpass', 
-    password_confirmation: 'rootpass',
+    name: 'admin', 
+    email: 'admin@email.com',
+    password: 'adminpass', 
+    password_confirmation: 'adminpass',
     group_id: 1,
+}).save!
+
+User.new({
+    name: 'admin2', 
+    email: 'admin2@email.com',
+    password: 'admin2pass', 
+    password_confirmation: 'admin2pass',
+    group_id: 2,
 }).save!
 
 User.new({    
