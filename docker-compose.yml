@@ -32,6 +32,8 @@ services:
       - bi_service_network
     depends_on:
       - db
+    stdin_open: true
+    tty: true
 
 volumes:
   public-data:
