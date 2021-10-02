@@ -14,16 +14,15 @@ class GroupsController < ApplicationController
         begin
             ActiveRecord::Base.transaction do
                 @group.save!
-                @current_user.group_id = @group.id
-                @current_user.save!
+                @current_user.update!(group_id: @group.id)
             end
         rescue ActiveRecord::RecordInvalid => e
             error_msgs << e.record.errors.full_messages
         end
-        if !@group.save
+        if error_msgs.present?
             redirect_to new_group_path, flash: {
                 group: @group,
-                error_messages: group.errors.full_messages,
+                error_messages: error_msgs.flatten,
             }
         end
     end
