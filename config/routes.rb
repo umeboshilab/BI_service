@@ -15,10 +15,11 @@ Rails.application.routes.draw do
   post '/requests' =>   'requests#create'
   get '/tasks/rejected' => 'tasks#index_rejected'
   get '/tasks/done' => 'tasks#index_done'
+  get '/users/join_group' => 'users#join_group'
   # post '/requests/:id' =>   'requests#checkRequest'
   # put  '/requests/:id' =>   'requests#report'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  resources :users, only: %i[new create]
+  resources :users, only: %i[new create update]
   resources :groups, only: %i[new create]
 end
 
