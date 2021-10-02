@@ -123,8 +123,5 @@ document.addEventListener('turbolinks:load', () => {
     let doneButton = document.getElementById('doneButton');
     doneButton.onclick = doneForm;
 
-
-
-
 })
 

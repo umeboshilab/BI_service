@@ -1,12 +1,31 @@
+<%#= javascript_include_tag "/packs/UI/copyToClipboard" %>
+
 <div class="my-10 p-2 w-96 h-auto mx-auto bg-gray-100 rounded-lg border-2 border-gray-300 shadow-md">
     <div class="bg-gray-100">
-        <p class="my-16 font-sans font-medium text-2xl text-center">グループを作成</p>
+        <p class="mt-5 mb-3 text-2xl font-sans font-medium text-center">グループを作成しました！</p>
 
-        <div class="m-4 flex-wrap items-center justify-center">
-            グループを作成しました<br>
-            グループ名：<%= @group.name %><br>
-            グループID：<%= @group.code %><br>
-            グループIDは忘れずにメモしてください
+        <div>
+            <div class="mx-4 text-xl flex-wrap items-center justify-center">
+                グループ名：<%= @group.name %><br>
+                グループID：<br>
+                <div id="copyTarget" onclick="copyToClipboard()"
+                class="w-max px-2 mx-auto text-center font-bold cursor-pointer border-2 border-blue-300 bg-blue-50">
+                    <%= @group.code %>
+                </div>
+            </div>
+            <p class="mx-4 mt-3 mb-5">グループIDは忘れずにメモしてください</p>
         </div>
     </div>
 </div>
+
+<script>
+    function copyToClipboard() {
+        // コピー対象をJavaScript上で変数として定義する
+        var copyTarget = document.getElementById("copyTarget");
+        // 選択しているテキストをクリップボードにコピーする
+        navigator.clipboard.writeText(copyTarget.innerHTML.trim());
+        // コピーをお知らせする
+        console.log(copyTarget.innerHTML.trim())
+        alert("クリップボードにコピーしました。");
+    }
+</script>
