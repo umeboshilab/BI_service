@@ -47,4 +47,4 @@ bind "unix://#{app_root}/tmp/sockets/puma.sock"
 pidfile "#{app_root}/tmp/pids/server.pid"
 
 
-stdout_redirect "#{app_root}/log/puma.stdout.log", "#{app_root}/log/puma.stderr.log", true
+# stdout_redirect "#{app_root}/log/puma.stdout.log", "#{app_root}/log/puma.stderr.log", true

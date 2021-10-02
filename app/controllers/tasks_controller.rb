@@ -1,9 +1,8 @@
 class TasksController < ApplicationController
+  before_action :confirm_current_user_belongs_to_group
+  before_action :confirm_current_user_is_host
+
   def create
-    if !@current_user
-      flash[:notice] = "ログインしてください"
-      redirect_to service_path and return
-    end
     host_user = HostUser.find_by(user_id: @current_user.id)
     if !host_user
       flash[:notice] = "Host Userでないためリクエストの承認/拒否はできません"
@@ -103,5 +102,11 @@ class TasksController < ApplicationController
 
   def task_update_params
     params.require(:task).permit(:host_user_id, :isDone, :comment)
+  end
+
+  private
+
+  def confirm_current_user_is_host
+    redirect_to login_path unless @current_user.host_user.present? 
   end
 end
