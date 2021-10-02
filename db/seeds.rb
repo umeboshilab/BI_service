@@ -62,6 +62,14 @@ User.new({
     password_confirmation: 'testpass',
 }).save!
 
+User.new({    
+    name: 'general',
+    email: 'general@email.com',
+    password: 'generalpass',
+    password_confirmation: 'generalpass',
+    group_id: 1,
+}).save!
+
 HostUser.create!(
     [
         {
