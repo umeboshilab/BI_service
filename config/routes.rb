@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'service#index'
+  root 'top#index'
   get '/login', to: 'sessions#login'
   post 'login', to: 'sessions#create'
   delete 'logout', to: 'sessions#destroy'
