@@ -3,7 +3,7 @@
 <%= render partial: 'top/index' %>
 
 <div id="bodyWrapper" class="bg-white">
-    <div id="serviceContainer" class="w-11/12 mx-auto flex-wrap md:flex justify-evenly p-4 center">
+    <div id="serviceContainer" class="w-11/12 mt-4 mx-auto flex-wrap md:flex justify-evenly center">
         <div id="requestsBody" class="lg:w-5/12 w-5/6 mx-auto">
 
             <!-- 保存に失敗したらエラーメッセージを表示 -->
@@ -81,7 +81,7 @@
         </div>
 
 
-        <div id="rightContainer" class="lg:w-5/12 w-5/6 mx-auto lg:my-auto my-16">
+        <div id="rightContainer" class="lg:w-5/12 w-5/6 mx-auto lg:my-auto mt-16">
             <div class="rounded-lg border-2 border-gray-300 bg-gray-100  mx-2 my-4 p-2">
                 <%# <hr> %>
                 <p  class="font-sans font-medium text-2xl">Accepted Tasks</p>
@@ -118,7 +118,7 @@
                                     <div class="inline-block align-middle font-bold text-lg w-max mx-2"><%= task.host_user.position %></div>
                                 </div>
                             </div>
-                            <div class="break-all text-base">
+                            <div class="break-all text-base text-gray-700">
                                 <%= task.comment %>
                             </div>
                         </div>
@@ -255,5 +255,14 @@
             </div>
         </div>
     </div>
+</div>
 
+
+<div id="page_top" class="w-max ml-auto mr-2 text-center">
+    <a href="#" class="grid grid-cols-1 justify-items-center">
+        <div class="m-1 h-10 w-10 bg-yellow-100 rounded-full">
+            <i class="material-icons y-max m-2">arrow_upward</i>
+        </div>
+        <div class="w-max">Page Top</div>
+    </a>
 </div>
