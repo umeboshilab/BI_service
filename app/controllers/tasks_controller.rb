@@ -1,4 +1,5 @@
 class TasksController < ApplicationController
+  before_action :confirm_current_user_is_logged_in
   before_action :confirm_current_user_belongs_to_group
   before_action :confirm_current_user_is_host
 
@@ -138,6 +139,8 @@ class TasksController < ApplicationController
     end
   end
 
+  private
+
   def task_params
     params.require(:task).permit(:request_id, :host_user_id, :isAccepted, :comment)
   end
@@ -145,8 +148,6 @@ class TasksController < ApplicationController
   def task_update_params
     params.require(:task).permit(:host_user_id, :isDone, :comment)
   end
-
-  private
 
   def confirm_current_user_is_host
     if @current_user.host_user.blank?
