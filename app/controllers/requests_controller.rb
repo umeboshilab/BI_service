@@ -1,4 +1,5 @@
 class RequestsController < ApplicationController
+  before_action :confirm_current_user_is_logged_in 
   before_action :confirm_current_user_belongs_to_group
 
   def create

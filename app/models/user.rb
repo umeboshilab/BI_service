@@ -6,8 +6,8 @@ class User < ApplicationRecord
         presence: true,
         length: { maximum: 16 },
         format: {
-            with: /\A[a-z0-9]+\z/,
-            message: 'は小文字英数字で入力してください'
+            with: /\A(?:\p{Hiragana}|\p{Katakana}|[ー－]|[一-龠々]|[A-Za-z0-9]|)+\z/,
+            message: 'に使用できない文字が含まれています'
         }
     validates :email,
         presence: true,
