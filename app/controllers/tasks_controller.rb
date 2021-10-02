@@ -14,9 +14,14 @@ class TasksController < ApplicationController
           error_msgs << 'グループが存在しないか，削除されました'
           raise ActiveRecord::Rollback
         end
+
         request = Request.lock.find_by(id: @task.request_id)
         if request.blank?
           error_msgs << 'リクエストが存在しないか，削除されました'
+          raise ActiveRecord::Rollback
+        end
+        if request.group_id != @current_user.group_id
+          error_msgs << '不正なアクセスです'
           raise ActiveRecord::Rollback
         end
         request.update!({isChecked: true})

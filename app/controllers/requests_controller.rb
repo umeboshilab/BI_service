@@ -7,18 +7,20 @@ class RequestsController < ApplicationController
     request_image_name = 'no_image.png'
     error_msgs = []
 
-    ActiveRecord::Base.transaction do
-      if Group.lock.find_by(id: @current_user.group_id).blank?
-        error_msgs << 'グループが存在しないか，削除されました'
-        raise ActiveRecord::Rollback
+    begin
+      ActiveRecord::Base.transaction do
+        if Group.lock.find_by(id: @current_user.group_id).blank?
+          error_msgs << 'グループが存在しないか，削除されました'
+          raise ActiveRecord::Rollback
+        end
+        @request[:group_id] = @current_user.group_id
+        if @request[:image].present?
+          request_image_file = @request[:image].read
+          request_image_name = @request[:image].original_filename
+          @request[:image] = request_image_name
+        end
+        @request.save!
       end
-      @request[:group_id] = @current_user.group_id
-      if @request[:image].present?
-        request_image_file = @request[:image].read
-        request_image_name = @request[:image].original_filename
-        @request[:image] = request_image_name
-      end
-      @request.save!
     rescue ActiveRecord::RecordInvalid => e
       error_msgs << e.record.errors.full_messages
     end
