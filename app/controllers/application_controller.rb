@@ -13,6 +13,6 @@ class ApplicationController < ActionController::Base
     end
 
     def confirm_current_user_belongs_to_group
-        redirect_to login_path if @current_user.group_id.blank?
+        redirect_to root_path if @current_user.group_id.blank?
     end
 end
