@@ -23,9 +23,9 @@
         // コピー対象をJavaScript上で変数として定義する
         var copyTarget = document.getElementById("copyTarget");
         // 選択しているテキストをクリップボードにコピーする
-        navigator.clipboard.writeText(copyTarget.innerHTML);
+        navigator.clipboard.writeText(copyTarget.innerHTML.trim());
         // コピーをお知らせする
-        console.log(copyTarget.innerHTML)
+        console.log(copyTarget.innerHTML.trim())
         alert("クリップボードにコピーしました。");
     }
 </script>
