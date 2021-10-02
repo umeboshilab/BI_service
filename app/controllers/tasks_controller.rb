@@ -90,14 +90,36 @@ class TasksController < ApplicationController
   end
 
   def update
-    task = Task.find(params[:id])
-    if task.update(task_update_params)
+    task = nil
+    error_msgs = []
+    begin
+      ActiveRecord::Base.transaction do
+        if Group.lock.find_by(id: @current_user.group_id).blank?
+          error_msgs << 'グループが存在しないか，削除されました'
+          raise ActiveRecord::Rollback
+        end
+
+        task = Task.lock.find_by(id: params[:id])
+        if task.blank?
+          error_msgs << 'タスクが存在しないか，削除されました'
+          raise ActiveRecord::Rollback
+        end
+        if task.group_id != @current_user.group_id
+          error_msgs << '不正なアクセスです'
+          raise ActiveRecord::Rollback
+        end
+        task.update!(task_update_params)
+      end
+    rescue ActiveRecord::RecordInvalid => e
+      error_msgs << e.record.errors.full_messages
+    end
+    if error_msgs.blank?
       flash[:notice] = "#{task.request.title}を完了済みタスクに登録しました"
       redirect_to tasks_done_path
     else
       redirect_to service_path, flash: {
         task: task,
-        error_messages: task.errors.full_messages
+        error_messages: error_msgs.flatten
       }
     end
   end
