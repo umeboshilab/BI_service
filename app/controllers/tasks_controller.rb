@@ -51,29 +51,43 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    task = Task.find(params[:id])
+    task = nil
     error_msgs = []
-    ActiveRecord::Base.transaction do
-      if task.request_id
-        if !task.request.update({isChecked: false})
-          error_msgs << task.request.errors.full_messages
+    begin
+      ActiveRecord::Base.transaction do
+        if Group.lock.find_by(id: @current_user.group_id).blank?
+          error_msgs << 'グループが存在しないか，削除されました'
+          raise ActiveRecord::Rollback
         end
-      else
-        error_msgs << 'Request_id is empty'
+
+        task = Task.lock.find_by(id: params[:id])
+        if task.blank?
+          error_msgs << 'タスクが存在しないか，削除されました'
+          raise ActiveRecord::Rollback
+        end
+        if task.group_id != @current_user.group_id
+          error_msgs << '不正なアクセスです'
+          raise ActiveRecord::Rollback
+        end
+        request = Request.lock.find_by(id: task.request_id)
+        if request.blank?
+          error_msgs << 'リクエストが存在しないか，削除されました'
+          raise ActiveRecord::Rollback
+        end
+        request.update!({isChecked: false})
+        task.destroy!
       end
-      if !task.destroy
-        error_msgs << task.errors.full_messages
-      end
-      raise ActiveRecord::Rollback if error_msgs.present?
+    rescue ActiveRecord::RecordInvalid => e
+      error_msgs << e.record.errors.full_messages
     end
-    if error_msgs.present?
+    if error_msgs.blank?
+      flash[:notice] = "「#{task.request.title}」をRequest Listに戻しました"
+      redirect_to service_path
+    else
       redirect_to service_path, flash: {
         task: task,
         error_messages: error_msgs.flatten
       }
-    else
-      flash[:notice] = "「#{task.request.title}」をRequest Listに戻しました"
-      redirect_to service_path
     end
   end
 
