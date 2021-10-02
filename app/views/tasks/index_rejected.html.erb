@@ -6,27 +6,26 @@
                 <%= flash[:notice] %>
             </div>
         <% end %>
-        <div id="rightContainer" class="lg:w-5/12  w-5/6">
-            <div class="rounded-lg border-2 border-gray-500 bg-gray-100  mx-2 my-4 p-2">
-                <%# <hr> %>
+        <div class="lg:w-5/12 w-5/6 mx-auto lg:my-auto my-16">
+            <div class="rounded-lg border-2 border-gray-300 bg-gray-100  mx-2 my-4 p-2">
                 <p  class="font-sans font-medium text-2xl">Rejected List</p>
                 <% @rejected_tasks.each do |task| %>
-                    <div id="rejectedList", class="h-64 bg-white mx-2 my-4 rounded-lg shadow-md">
-                        <div class="h-32 rounded-t-lg flex justify-start border-b-2">
+                    <div id="rejectedList", class="flex flex-col h-min bg-white mx-2 my-4 rounded-lg shadow-md">
+                        <div class="h-min rounded-t-lg flex justify-start border-b-2">
                             <div class="left-0 w-32 h-32">
-                                <div class="w-32 h-32 bg-blue-300 rounded-tl-lg">
+                                <div class="w-32 h-32 bg-white rounded-tl-lg">
                                     <% task_image_path = "public/request_images/#{task.request.id}_#{task.request.image}" %>
                                     <% if File.exist?(task_image_path) %>
-                                        <%= image_tag "/request_images/#{task.request.id}_#{task.request.image.force_encoding("UTF-8")}", class: "object-cover rounded-l-lg h-full" %>
+                                        <%= image_tag "/request_images/#{task.request.id}_#{task.request.image.force_encoding("UTF-8")}", class: "w-32 h-32 object-cover rounded-tl-lg" %>
                                     <% else %>
-                                        <%= image_tag "/request_images/no_image.png", class: "object-cover rounded-l-lg  h-full" %>
+                                        <%= image_tag "/request_images/no_image.png", class: "w-32 h-32 object-cover rounded-tl-lg" %>
                                     <% end %>
                                 </div>
                             </div>
 
-                            <div class="w-full m-2">
-                                <div class="truncate font-bold text-lg w-max"><%= task.request.title %></div>
-                                <div class="break-word text-base"><%= task.request.message %></div>
+                            <div class="m-2 w-max-full flex flex-col flex-grow justify-between">
+                                <div class="overflow-hidden font-bold text-lg w-auto"><%= task.request.title %></div>
+                                <div class="break-all text-base text-gray-700 h-auto"><%= task.request.message %></div>
                             </div>
                         </div>
 
@@ -43,22 +42,16 @@
                                     <div class="inline-block align-middle font-bold text-lg w-max mx-2"><%= task.host_user.position %></div>
                                 </div>
                             </div>
-                            <div>
+                            <div class="break-all text-base">
                                 <%= task.comment %>
                             </div>
                         </div>
                     </div>
-
-
-                    <%# <%= task.request.id %>
-                    <%# <%= task.id %>
-                    <%# <%= task.host_user.user_id %>
                 <% end %>
-
-
             </div>
+
             <div id="transitionButtons" class="flex justify-evenly my-4">
-                <input type="button" value="Back to Top" onclick="location.href='/service'" class="h-16 w-1/3 py-2 px-4 font-semibold text-2xl rounded-lg shadow-md text-white bg-red-500 hover:bg-red-700">
+                <button onclick="location.href='/service'" class="w-1/3 mx-4 my-4 py-2 px-4 min-w-max font-semibold rounded-lg shadow-md bg-white border border-gray-300 font-medium text-gray-700 hover:bg-gray-50">Back to Service</button>
             </div>
         </div>
     </div>
