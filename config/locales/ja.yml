@@ -5,3 +5,11 @@ ja:
         name: ユーザー名
         password: パスワード
         password_confirmation: パスワード（確認）
+      request:
+        title: タイトル
+        message: メッセージ
+        image: 画像
+      task:
+        comment: グループ名
+      group:
+        name: グループ名
