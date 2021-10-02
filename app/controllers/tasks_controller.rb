@@ -92,15 +92,15 @@ class TasksController < ApplicationController
   end
 
   def show
-    @tasks = Task.all    
+    @tasks = Task.where(group_id: @current_user.group_id)    
   end
 
   def index_rejected
-    @rejected_tasks = Task.where(isAccepted: 0)
+    @rejected_tasks = Task.where(isAccepted: 0, group_id: @current_user.group_id)
   end
 
   def index_done
-    @done_tasks = Task.where(isDone: 1)
+    @done_tasks = Task.where(isDone: 1, group_id: @current_user.group_id)
   end
 
   def update
