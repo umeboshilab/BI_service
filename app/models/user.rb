@@ -13,5 +13,7 @@ class User < ApplicationRecord
         presence: true,
         uniqueness: true
     validates :password,
-        length: { minimum:8, maximum: 15 }
+        length: { minimum:8, maximum: 15 },
+        confirmation: true,
+        on: :registration
 end
