@@ -30,7 +30,7 @@
             <p class="py-2 px-4 mx-2 h-10 sm:h-12 font-semibold">
               <%= @current_user.name %>
             </p>
-            <%= link_to 'Log out', logout_path, method: :delete, class: 'py-2 px-4 mx-2 h-10 sm:h-12 font-semibold rounded-lg shadow-md text-white bg-green-500 hover:bg-green-700' %>
+            <%= link_to 'Log out', logout_path, method: :delete, class: 'py-2 px-4 mx-2 h-10 sm:h-12 min-w-max font-semibold text-sm sm:text-base rounded-lg shadow-md border-2 border-black text-black bg-white hover:bg-gray-300' %>
           <% else %>
             <%= link_to 'Log in', login_path, class: 'py-2 px-4 mx-2 h-10 sm:h-12 min-w-max font-semibold text-sm sm:text-base rounded-lg shadow-md text-white bg-green-500 hover:bg-green-700' %>
             <%= link_to 'Sign up', new_user_path, class: 'py-2 px-4 mx-2 h-10 sm:h-12 min-w-max font-semibold text-sm sm:text-base rounded-lg shadow-md border-2 border-black text-black bg-white hover:bg-gray-300' %>
@@ -46,7 +46,7 @@
 
       <div class="mt-4 h-8 sm:h-10 flex flex-wrap justify-evenly border-t-2">
         <%# <div class="flex flex-row"> %>
-          <%= link_to 'Home', "/", class: 'c min-w-max' %>
+          <%= link_to 'Home', "/", class: 'my-auto min-w-max' %>
           <%= link_to 'Service', "/service", class: 'my-auto min-w-max' %>
           <%= link_to 'プライバシーポリシー', "/", class: 'my-auto min-w-max' %>
           <%= link_to 'ご利用にあたって', "/", class: 'my-auto min-w-max' %>
