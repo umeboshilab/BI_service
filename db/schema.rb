@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_02_145603) do
+ActiveRecord::Schema.define(version: 2021_10_01_101710) do
+
+  create_table "groups", charset: "utf8mb4", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "code", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["code"], name: "index_groups_on_code", unique: true
+  end
 
   create_table "host_users", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -29,6 +37,8 @@ ActiveRecord::Schema.define(version: 2021_07_02_145603) do
     t.binary "image"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "group_id", null: false
+    t.index ["group_id"], name: "index_requests_on_group_id"
   end
 
   create_table "tasks", charset: "utf8mb4", force: :cascade do |t|
@@ -39,6 +49,8 @@ ActiveRecord::Schema.define(version: 2021_07_02_145603) do
     t.boolean "isDone", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "group_id", null: false
+    t.index ["group_id"], name: "index_tasks_on_group_id"
     t.index ["host_user_id"], name: "index_tasks_on_host_user_id"
     t.index ["request_id"], name: "index_tasks_on_request_id"
   end
@@ -49,8 +61,13 @@ ActiveRecord::Schema.define(version: 2021_07_02_145603) do
     t.string "password_digest", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "group_id"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["group_id"], name: "index_users_on_group_id"
   end
 
   add_foreign_key "host_users", "users"
+  add_foreign_key "requests", "groups"
+  add_foreign_key "tasks", "groups"
+  add_foreign_key "tasks", "requests"
 end
