@@ -1,0 +1,26 @@
+<div class="flex">
+<% if flash[:error_messages] %>
+<div class="text-red-500">
+    <ul>
+        <% flash[:error_messages].each do |msg| %>
+            <li><%= msg %></li>
+        <% end %>
+    </ul>
+</div>
+<% end %>
+</div>
+
+
+<div>
+    <%= form_with url: "/users/#{@current_user.id}", method: :patch do |f| %>
+        <div class="my-2 mx-auto w-11/12">
+            <%# 'sr-only' %>
+            <%= f.label :group_code, 'グループID', class: '' %>
+            <%= f.text_field :group_code, class: 'px-3 py-2 w-full border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm', placeholder: 'Group ID:' %>
+        </div>
+
+        <div class="w-min mx-auto">
+            <%= f.submit 'Sign up', class: 'h-12 px-4 mt-4 font-semibold text-l shadow-md rounded-lg text-white bg-blue-500 hover:bg-blue-700' %>
+        </div>
+    <% end %>
+</div>
