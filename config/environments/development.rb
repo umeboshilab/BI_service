@@ -79,3 +79,11 @@ Rails.application.configure do
   config.cache_classes = false
   config.reload_classes_only_on_change = false
 end
+
+
+
+#Rails.application.config.hosts = [
+#  IPAddr.new("0.0.0.0/0"),
+#  IPAddr.new("::/0"),
+#  "localhost"
+#]
