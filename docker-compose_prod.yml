@@ -26,7 +26,6 @@ services:
     command: bash -c "rm -f tmp/pids/server.pid && echo 'remove' && bundle exec puma -C config/puma.rb -e production"
     volumes:
       - .:/app
-      - public-data:/app/public
       - tmp-data:/app/tmp
       - log-data:/app/log
     networks:
@@ -37,7 +36,7 @@ services:
   web:
     build: ./nginx_docker
     volumes:
-      - public-data:/app/public
+      - ./public:/app/public
       - tmp-data:/app/tmp
     ports:
       - 80:80

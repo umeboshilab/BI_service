@@ -48,10 +48,3 @@ yarn-debug.log*
 !/public/host_user_icons/no_icon.png
 
 .env
-.env.prod
-/public/packs
-/public/packs-test
-/node_modules
-/yarn-error.log
-yarn-debug.log*
-.yarn-integrity
